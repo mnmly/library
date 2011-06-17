@@ -48,7 +48,7 @@
 
 <p>一番手っ取り早い方法はブラウザでそのまま遊んでみる方法です。<a href="http://coffeescript.org">http://coffeescript.org</a>へ飛び、 <em>Try CoffeeScript</em> タブをクリックしてください。ブラウザバージョンのCoffeeScriptコンパイラで左側に打ち込んだコードが右側にJavaScriptとして書き出されます。</p>
 
-<p>さらに、自身でもこのブラウザベースのコンパイラを使うことが出来るので、<a href="http://jashkenas.github.com/coffee-script/extras/coffee-script.js">このスクリプト</a> をページに埋め込み、正確な<code>type</code>でCoffeeScriptを書いてみましょう。</p>
+<p>さらに、自身でもこのブラウザベースのコンパイラを使うことが出来るので、<a href="http://jashkenas.github.com/coffee-script/extras/coffee-script.js">このスクリプト</a> をページに埋め込み、正確な <code>type</code> でCoffeeScriptを書いてみましょう。</p>
 
 <pre><code>&lt;script src="http://jashkenas.github.com/coffee-script/extras/coffee-script.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
 &lt;script type="text/coffeescript"&gt;
@@ -63,15 +63,15 @@
 <pre><code>npm install coffee-script
 </code></pre>
 
-<p>これで<code>coffee</code>が実行可能になりました。Terminalで<code>coffee</code>と打つと、CoffeeScriptコンソールが起動し、すぐにCoffeeScriptのコードを実行する事が出来ます。コンパイルするには、<code>--compile</code>オプションを付けて以下のようにしてください。</p>
+<p>これで <code>coffee</code> が実行可能になりました。Terminalで <code>coffee</code> と打つと、CoffeeScriptコンソールが起動し、すぐにCoffeeScriptのコードを実行する事が出来ます。コンパイルするには、 <code>--compile</code> オプションを付けて以下のようにしてください。</p>
 
 <pre><code>coffee --compile my-script.coffee
 </code></pre>
 
-<p> <code>--output</code>オプションが指定されていない場合、CoffeeScriptは同じ名前でJavaScriptを保存します。(上記の例の場合は, <code>my-script.js</code>) この操作は既存のファイルを上書きしてしまうので注意してください。</p>
+<p><code>--output</code> オプションが指定されていない場合、CoffeeScriptは同じ名前でJavaScriptを保存します。(上記の例の場合は,  <code>my-script.js</code> ) この操作は既存のファイルを上書きしてしまうので注意してください。</p>
 
 <p>
-見てお分かりの通り、CoffeeScriptのデフォルトの拡張子は<code>.coffee</code>となります。他の言語と同じように、<a href="http://macromates.com/">TextMate</a>などのエディタで正しい文法ハイライトを付けることができます。TextMateの場合、デフォルトではCoffeeScriptに対応していないので、<a href="https://github.com/jashkenas/coffee-script-tmbundle">こちら</a>からそのバンドルをインストールする事が出来ます。</p>
+見てお分かりの通り、CoffeeScriptのデフォルトの拡張子は <code>.coffee</code> となります。他の言語と同じように、<a href="http://macromates.com/">TextMate</a>などのエディタで正しい文法ハイライトを付けることができます。TextMateの場合、デフォルトではCoffeeScriptに対応していないので、<a href="https://github.com/jashkenas/coffee-script-tmbundle">こちら</a>からそのバンドルをインストールする事が出来ます。</p>
 
 <p>このコンパイルステップが「不便…面倒や…」と感じられるかもしれませんが、そうゆうものなのです:D 後ほど自動的にCoffeeScriptをコンパイルする方法をお教えしますので、まずこの言語の文法から見てみましょう。</p>
 
