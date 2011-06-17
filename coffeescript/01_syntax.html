@@ -2,8 +2,9 @@
 <html>
 <head>
 <meta charset=utf-8>
-<title>The Little Book on CoffeeScript - Syntax</title>
+<title>ちっちゃいCoffeeScriptの本 - 文法</title>
 <link rel="stylesheet" href="site/site.css" type="text/css" charset="utf-8">
+<link rel="stylesheet" href="site/ja.css" type="text/css" charset="utf-8">
 <link rel="stylesheet" href="site/highlight.css" type="text/css" charset="utf-8">
 <script src="site/jquery.js" type="text/javascript" charset="utf-8"></script>      
 <script src="site/highlight.js" type="text/javascript" charset="utf-8"></script>
@@ -16,29 +17,29 @@
 <body>
 <div id="container">
   <header>
-    <h1><a href="index.html">The Little Book on CoffeeScript</a></h1>
+    <h1><a href="index.html">ちっちゃいCoffeeScriptの本</a></h1>
   </header>
   
   <div id="content">
-    <div class="back"><a href="index.html">&laquo; Back to all chapters</a></div>
+    <div class="back"><a href="index.html">&laquo; チャプターに戻る</a></div>
 
 
-<h1>CoffeeScript Syntax</h1>
+<h1>CoffeeScriptの文法</h1>
 
-<p>Firstly, before we get any further into this section, I want to reiterate that while CoffeeScript's syntax is often identical with JavaScript's, it's not a superset, and therefore some JavaScript keywords, such as <code>function</code> and <code>var</code> aren't permitted, and will throw syntax errors. If you're writing a CoffeeScript file, it needs to be pure CoffeeScript; you can't intermingle the two languages.</p>
+<p>この節に踏み込む前にもう一度繰り返しておくと、CoffeeScriptの文法は時々JavaScriptに似たものもありますが、それは決して上位にある言語ではなく、それゆえJavaScriptのキーワードの<code>function</code>や<code>var</code>はCoffeeScriptでは使ってはいけません。使った場合は文法エラー(SyntaxError)が返されます。CoffeeScriptを書いているときは、そのファイルは純粋にCoffeeScriptでなくてはならず、二つの言語をごちゃ混ぜにしてはいけません。</p>
 
-<p>Why isn't CoffeeScript a superset? Well, the very fact that whitespace is significant in CoffeeScript programs prevents it being a superset. And, once that's decision's been made, the team decided you might as well go the full hog and deprecate some JavaScript keywords and features in the name of simplicity and in an effort to reduce many commonly occurring bugs.</p>
+<p>なぜ上位(superset)ではないのかというと、CoffeeScriptでは空白(whitespace)が重要な意味を持っているからです。そして一度これでいくと決めたら、チームのみんなも同様にそうしなければならず、簡素化の名の下、そして良く起こるバグを減らすためにも、JavaScriptのキーワードなどを切り捨てなくてはいけません。</p>
 
-<p>What I find mind-blowing, in a meta sort of way, is that the CoffeeScript interpreter itself is actually written in CoffeeScript. It looks like the chicken or egg paradox has finally been solved!</p>
+<p>私がびっくりしたのは、CoffeeScriptのインタプリタそのものがCoffeeScriptで書かれているという事です。にわとりとたまごの逆説がとうとう解かれましたね :D</p>
 
-<p>Right, so firstly let's tackle the basic stuff. There's no semicolons in CoffeeScript, it'll add them automatically for you upon compilation. Semicolons were the cause of much debate in the JavaScript community, and behind some weird interpreter <a href="http://bonsaiden.github.com/JavaScript-Garden/#core.semicolon">behavior</a>. Anyway, CoffeeScript resolves this problem for you by simply removing semi-colons from its syntax, adding them as needed behind the scenes.</p>
+<p>さて、まず基本的な事から。CoffeeScriptにはセミコロン(;)は存在しません。コンパイル時に自動的に挿入されます。セミコロンはインタプリタの<a href="http://bonsaiden.github.com/JavaScript-Garden/#core.semicolon">変な挙動</a>もあってJavaScriptコミュニティでも議論の的となっていました。とにかく、ただセミコロンを省くだけでこのやっかいなことから回避できて、CoffeeScriptが必要なときに自動的に挿入してくれます。</p>
 
-<p>Comments are in the same format as Ruby comments, starting with a hash character.</p>
+<p>コメントはRubyのコメントと一緒で、ハッシュ(#)から始まります。</p>
 
 <pre><code># A comment
 </code></pre>
 
-<p>Multiline comments are also supported, and are brought forward to the generated JavaScript. They're enclosed by three hash characters.</p>
+<p>複数行のコメントもサポートされていて、コンパイルされるJavaScriptにも反映されます。3連続のハッシュで囲みます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -47,22 +48,23 @@
 ###
 </code></pre>
 
-<p>As I briefly alluded to, whitespace is significant in CoffeeScript. In practice, this means that you can replace curly brackets (<code>{}</code>) with a tab. This takes inspiration from Python's syntax, and has the excellent side-effect of ensuring that your script is formatted in a sane manner, otherwise it won't even compile!</p>
+<p>
+それとなく触れたように、空白はCoffeeScriptは大事な要素です。実際にはタブが括弧(<code>{}</code>)の代わりになります。これはPythonの文法から影響を受けています。そして良い副作用としてコードそのものをきれいに整頓してくれますし、もしフォーマットが崩れていたらコンパイルはされません。</p>
 
-<h2>Variables &amp; Scope</h2>
+<h2>変数と範囲(Scope)</h2>
 
-<p>CoffeeScript fixes one of the major bugbears with JavaScript, global variables. In JavaScript, it's all too easy to accidentally declare a global variable by forgetting to include <code>var</code> before the variable assignment. CoffeeScript solves this by simply removing global variables. Behind the scenes, CoffeeScript wraps up scripts with a anonymous function, keeping the local context, and automatically prefixes all variable assignments with <code>var</code>. For example, take this simple variable assignment in CoffeeScript:</p>
+<p>CoffeeScriptはJavaScriptの主要な弱点であるグローバル変数の問題を解決します。JavaScriptでは<code>var</code>を付け忘れるだけで、いとも簡単にグローバルに変数を宣言できてしまいました。CoffeeScriptはこの問題も、グローバル変数をなくすことで解決しています。その裏では、CoffeeScriptが全体を匿名のファンクション(Anonymous function) で囲う事で、ローカルのコンテクストにとどめて、全ての変数の代入を自動的に<code>var</code>を付けてコンパイルしています。例えば、以下の簡単なCoffeeScriptの例を見てましょう。</p>
 
 <p><span class="csscript"></span></p>
 
 <pre><code>myVariable = "test"
 </code></pre>
 
-<p>Notice the dark grey box in the top right of the code example above. Give that a click, and the code will toggle between CoffeeScript and the compiled JavaScript. This is rendered right inside the page at runtime, so you assured the compiled output is accurate.</p>
+<p>右上のグレーの四角の部分をクリックしてみてください。コードがCoffeeScriptとコンパイルされたJavaScriptとに交互に変わります。このコードはページが読み込まれた後に生成された物ですので、コンパイルされたアウトプットが正確だという事が見てお分かりだと思います。</p>
 
-<p>As you can see, the variable assignment is kept completely local, it's impossible to accidentally create a global variable. CoffeeScript actually takes this a step further, and makes it impossible to shadow a higher-level variable. This goes a great deal to prevent some of the most common mistakes developers make in JavaScript.</p>
+<p>ご覧の通り、全ての変数はローカルにとどまっており、うっかりグローバルの変数を作る事は不可能です。CoffeeScriptは実際にはもう少し踏み込み、さらに上位の変数の上書きも出来ないようにしています。これによってJavaScriptデベロッパーが頻繁に直面する問題を回避することが出来るのですx</p>
 
-<p>However, sometimes it's useful to create global variables. You can either do this by directly setting them as properties on the global object (<code>window</code> in browsers), or with the following pattern:</p>
+<p>しかし、時にはグローバルな変数を作った方が便利なときもありますよね。その時は直接、グローバルオブジェクト(ブラウザの<code>window</code>)のプロパティとして、もしくは以下のようなパターンでそうする事が出来ます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -70,9 +72,9 @@
 exports.MyVariable = "foo-bar"
 </code></pre>
 
-<p>In the root context, <code>this</code> is equal to the global object, and by creating a local <code>exports</code> variable you're making it really obvious to anyone reading your code exactly which global variables a script is creating. Additionally, it paves the way for CommonJS modules, which we're going to cover later in the book.</p>
+<p>ルートのコンテクストにおいて、<code>this</code>グローバルオブジェクトと同等なので、ローカルの<code>exports</code>を作っておくことで、どの変数がグローバルな変数なのか誰にでも分かりやすい書き方ができます。さらに、これは後述するCommonJSのモジュールにも関連してきます。</p>
 
-<h2>Functions</h2>
+<h2>関数(Function)</h2>
 
 <p>CoffeeScript removes the rather verbose <code>function</code> statement, and replaces it with a thin arrow: <code>-&gt;</code>. Functions can be one liners, or indented on multiple lines. The last expression in the function is implicitly returned. In other words, you don't need to use the <code>return</code> statement unless you want to return earlier inside the function.</p>
 
@@ -431,3 +433,4 @@ alert "Stop wagging me" if "ranks" in words
 </div>
 </body>
 </html>
+
