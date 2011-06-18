@@ -208,7 +208,7 @@ array3 = [1,2,3,]
 
 <p>上記の例からも見て分かるように、CoffeeScriptは <code>array3</code> の要に、後ろに残ったコンマも取り去ってくれるので、これもブラウザ間での異なる挙動からくるエラーを防いでくれます。</p>
 
-<h2>フローコントロール</h2>
+<h2>フロー制御</h2>
 
 <p>CoffeeScriptの「括弧を付けなくても良い仕様」は <code>if</code> や <code>else</code> でも同様です。</p>
 
@@ -280,9 +280,9 @@ null         ==   undefined     // true
 <pre><code>if 10 == "+10" then "type coercion fail"
 </code></pre>
 
-<h2>String interpolation</h2>
+<h2>文字列の操作</h2>
 
-<p>CoffeeScript brings Ruby style string interpolation to JavaScript. Double quotes strings can contain <code>#{}</code> tags, which contain expressions to be interpolated into the string.</p>
+<p>CoffeeScriptではRubyに近い文字列の操作が可能になります。 <code>"</code> (Double Quote)で囲まれた文字列は <code>#{}</code> タグを含むことが可能で、そのタグ内の表現は文字列に組み込まれます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -293,11 +293,11 @@ question = "Bridgekeeper: What... is your favourite colour?
             "
 </code></pre>
 
-<p>As you can see in the example above, multiline strings are also allowed, without having to prefix each line with a <code>+</code>:</p>
+<p>上の例より、複数行の文字列も可能でいちいち <code>+</code> を付けてつなぎ合わせる必要もありません。</p>
 
-<h2>Loops and Comprehensions</h2>
+<h2>配列内包表記(Array Comprehension)</h2>
 
-<p>Array iteration in JavaScript has a rather archaic syntax, reminiscent of an older language like C rather than a modern object orientated one. The introduction of ES5 improved that situation somewhat, with the <code>forEach()</code> function, but that still requires a function call every iteration and is therefore much slower. Again, CoffeeScript comes to the rescue, with a beautiful syntax:</p>
+<p>配列の反復処理は、少しクラッシックで、モダンなオブジェクト指向のものに比べると、どちらかというとC言語に近いものと言えます。ES5から導入される <code>forEach()</code> によってこの状況は改善されると期待されますが、しかし反復処理ごとに関数の呼び出しが必要となるので結果的に遅くなってしまいます。このケースに対してもCoffeeScriptが美しい文法を提供してくれるのです:</p>
 
 <p><span class="csscript"></span></p>
 
@@ -305,7 +305,7 @@ question = "Bridgekeeper: What... is your favourite colour?
   alert "Release #{name}"
 </code></pre>
 
-<p>If you need the current iteration index, just pass an extra argument:</p>
+<p>反復の回数を使いたいときは、もう一つの引数を渡して:</p>
 
 <p><span class="csscript"></span></p>
 
@@ -313,14 +313,14 @@ question = "Bridgekeeper: What... is your favourite colour?
   alert "#{i} - Release #{name}"
 </code></pre>
 
-<p>You can also iterate on one line, using the postfix form.</p>
+<p>また一行で反復処理も可能です。</p>
 
 <p><span class="csscript"></span></p>
 
 <pre><code>release prisoner for prisoner in ["Roger", "Roderick", "Brian"]
 </code></pre>
 
-<p>As with Python comprehensions, you can filter them:</p>
+<p>Pythonと同様にフィルターをかける事だって出来ます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -328,7 +328,7 @@ question = "Bridgekeeper: What... is your favourite colour?
 release prisoner for prisoner in prisoners when prisoner[0] is "R" 
 </code></pre>
 
-<p>You can also use comprehensions for iterating over properties in objects. Instead of the <code>in</code> keyword, use <code>of</code>.</p>
+<p>オブジェクトのプロパティの処理も <code>in</code> の代わりに <code>of</code> を使う事で簡単に扱う事が出来ます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -336,7 +336,7 @@ release prisoner for prisoner in prisoners when prisoner[0] is "R"
 alert("#{first} #{last}") for first, last of names
 </code></pre>
 
-<p>The only low level loop that CoffeeScript exposes is the <code>while</code> loop. This has similar behavior to the <code>while</code> loop in pure JavaScript, but has the added advantage that it returns an array of results, i.e. like the <code>Array.prototype.map()</code> function.</p>
+<p<code>while</code> ループのCoffeeScriptにはJavaScriptと同様に使用可能ですが、CoffeeScriptでは結果の配列を返し、<code>Array.prototype.map()</code> と同じ動作をします。</p>
 
 <p><span class="csscript"></span></p>
 
