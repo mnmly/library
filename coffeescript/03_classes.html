@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset=utf-8>
-<title>ちっちゃいCoffeeScriptの本 - クラス</title>
+<title>The Little Book on CoffeeScript - Classes</title>
 <link rel="stylesheet" href="site/site.css" type="text/css" charset="utf-8">
 <link rel="stylesheet" href="site/ja.css" type="text/css" charset="utf-8">
 <link rel="stylesheet" href="site/highlight.css" type="text/css" charset="utf-8">
@@ -17,14 +17,14 @@
 <body>
 <div id="container">
   <header>
-    <h1><a href="index.html">ちっちゃいCoffeeScriptの本</a></h1>
+    <h1><a href="index.html">The Little Book on CoffeeScript</a></h1>
   </header>
   
   <div id="content">
-    <div class="back"><a href="index.html">&laquo; チャプターに戻る</a></div>
+    <div class="back"><a href="index.html">&laquo; Back to all chapters</a></div>
 
 
-<h1>クラス</h1>
+<h1>Classes</h1>
 
 <p>JavaScriptにおけるクラスは、多くの人が敬遠しがちなコンセプトですが、あなたがこのCoffeeScriptの本を読んでいる限り、それに対する偏見はそれほど強くないと言えるでしょう。クラスは他の言語と同様にJavaScriptでも非常に便利なものでCoffeeScriptはすばらしい文法でクラスを作る事が出来ます。</p>
 
@@ -82,7 +82,7 @@ animal = new Animal
 animal.sell(new Customer)
 </code></pre>
 
-<p>コンテクストの変更はJavaScriptでは頻繁に起こりますが、前回の文法の節でふれたように、CoffeeScriptではふとっちょ矢印 ( <code>=&gt;</code> ) を使う事で <code>this</code> を特定のコンテクストに固定する事ができます。これによって、この関数のコンテクストは常に、その関数が作られたときのコンテクストを維持してくれます。CoffeeScriptのクラスではこのふとっちょ矢印の動作がすこし拡張され、インスタンスメソッドにふとっちょ矢印を使うとその <code>this</code> は現在のインスタンスに固定されます。</p> 
+<p>コンテクストの変更はJavaScriptでは頻繁に起こりますが、前回の文法の節でふれたように、CoffeeScriptではふとっちょ矢印 ( <code>=&gt;</code> ) を使う事で <code>this</code> を特定のコンテクストに固定する事ができます。これによって、この関数のコンテクストは常に、その関数が作られたときのコンテクストを維持してくれます。CoffeeScriptのクラスではこのふとっちょ矢印の動作がすこし拡張され、インスタンスメソッドにふとっちょ矢印を使うとその <code>this</code> は現在のインスタンスに固定されます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -163,7 +163,7 @@ alert("This parrot is no more") if parrot.rip
 
 <h2>Mixins</h2>
 
-<p><a href="http://ja.wikipedia.org/wiki/Mixin">Mixins</a>はCoffeeScriptでネイティブにサポートされている訳ではありませんが、下の例のように簡単に実装する事が可能です。<!-- For example, here's two functions, <code>extend()</code> and <code>include()</code> that'll add class and instance properties respectively to a class.--></p>
+<p><a href="http://ja.wikipedia.org/wiki/Mixin">Mixins</a>はCoffeeScriptでネイティブにサポートされている訳ではありませんが、下の例のように簡単に実装する事が可能です。<!-- For example, here's two functions, `extend()` and `include()` that'll add class and instance properties respectively to a class.--></p>
 
 <p><span class="csscript"></span></p>
 

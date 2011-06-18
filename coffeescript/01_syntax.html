@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset=utf-8>
-<title>ちっちゃいCoffeeScriptの本 - 文法</title>
+<title>The Little Book on CoffeeScript - Syntax</title>
 <link rel="stylesheet" href="site/site.css" type="text/css" charset="utf-8">
 <link rel="stylesheet" href="site/ja.css" type="text/css" charset="utf-8">
 <link rel="stylesheet" href="site/highlight.css" type="text/css" charset="utf-8">
@@ -17,14 +17,14 @@
 <body>
 <div id="container">
   <header>
-    <h1><a href="index.html">ちっちゃいCoffeeScriptの本</a></h1>
+    <h1><a href="index.html">The Little Book on CoffeeScript</a></h1>
   </header>
   
   <div id="content">
-    <div class="back"><a href="index.html">&laquo; チャプターに戻る</a></div>
+    <div class="back"><a href="index.html">&laquo; Back to all chapters</a></div>
 
 
-<h1>CoffeeScriptの文法</h1>
+<h1>CoffeeScript Syntax</h1>
 
 <p>この節に踏み込む前にもう一度繰り返しておくと、CoffeeScriptの文法は時々JavaScriptに似たものもありますが、それは決して上位にある言語ではなく、それゆえJavaScriptのキーワードの <code>function</code> や <code>var</code> はCoffeeScriptでは使ってはいけません。使った場合は文法エラー(SyntaxError)が返されます。CoffeeScriptを書いているときは、そのファイルは純粋にCoffeeScriptでなくてはならず、二つの言語をごちゃ混ぜにしてはいけません。</p>
 
@@ -48,8 +48,7 @@
 ###
 </code></pre>
 
-<p>
-それとなく触れたように、空白はCoffeeScriptは大事な要素です。実際にはタブが括弧(<code>{}</code>)の代わりになります。これはPythonの文法から影響を受けています。そして良い副作用としてコードそのものをきれいに整頓してくれますし、もしフォーマットが崩れていたらコンパイルはされません。</p>
+<p>それとなく触れたように、空白はCoffeeScriptは大事な要素です。実際にはタブが括弧(<code>{}</code>)の代わりになります。これはPythonの文法から影響を受けています。そして良い副作用としてコードそのものをきれいに整頓してくれますし、もしフォーマットが崩れていたらコンパイルはされません。</p>
 
 <h2>変数と範囲(Scope)</h2>
 
@@ -64,7 +63,8 @@
 
 <p>ご覧の通り、全ての変数はローカルにとどまっており、うっかりグローバルの変数を作る事は不可能です。CoffeeScriptは実際にはもう少し踏み込み、さらに上位の変数の上書きも出来ないようにしています。これによってJavaScriptデベロッパーが頻繁に直面する問題を回避することが出来るのですx</p>
 
-<p>しかし、時にはグローバルな変数を作った方が便利なときもありますよね。その時は直接、グローバルオブジェクト(ブラウザの<code>window</code>)のプロパティとして、もしくは以下のようなパターンでそうする事が出来ます。</p>
+<p>However, sometimes it's useful to create global variables. You can either do this by directly setting them as properties on the global object (<code>window</code> in browsers), or with the following pattern:
+しかし、時にはグローバルな変数を作った方が便利なときもありますよね。その時は直接、グローバルオブジェクト(ブラウザの<code>window</code>)のプロパティとして、もしくは以下のようなパターンでそうする事が出来ます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -76,7 +76,8 @@ exports.MyVariable = "foo-bar"
 
 <h2>関数(Function)</h2>
 
-<p>CoffeeScriptは分かりきった<code>function</code>ステートメントを省き、矢印 <code>-&gt;</code> をもって関数としています 。関数は、１行でもインデントを用いて複数行でも可能です。関数の最後の式が暗黙的に返されるため、関数内で明示的に<code>return</code >する場合を除いて、 <code>return</code> をタイプする必要はありません。</p>
+<p>CoffeeScriptは分かりきった <code>function</code> ステートメントを省き、矢印 <code>-&gt;</code> をもって関数としています 。関数は、１行でもインデントを用いて複数行でも可能です。関数の最後の式が暗黙的に返されるため、関数内で明示的に <code>return</code> する場合を除いて、 <code>return</code> をタイプする必要はありません。</p>
+
 <p>さて、次の例を見てみましょう</p>
 
 <p><span class="csscript"></span></p>
@@ -158,9 +159,10 @@ alert(inspect(a))
 
 <h3>関数のコンテクスト</h3>
 
-<p>コンテクストはJavaScriptでは様々で、特にイベントコールバックの場合はややこしくなったりするので、CoffeeScriptはこれを助けてくれるヘルパーをいくつか兼ね備えています。 一つ目は <code>-&gt;</code> の少し異なる型のふとっちょ矢印 <code>=&gt;</code> の関数です。
+<p>コンテクストはJavaScriptでは様々で、特にイベントコールバックの場合はややこしくなったりするので、CoffeeScriptはこれを助けてくれるヘルパーをいくつか兼ね備えています。 一つ目は <code>-&gt;</code> の少し異なる型のふとっちょ矢印 <code>=&gt;</code> の関数です。</p>
 
-<p>ふとっちょ矢印は細い矢印とは異なり、関数のコンテクストを常にローカルのコンテクストに保ってくれます。例えば:</p>
+<p>Using the fat arrow instead of the thin arrow ensures that the function context will be bound to the local one. For example:
+ふとっちょ矢印は細い矢印とは異なり、関数のコンテクストを常にローカルのコンテクストに保ってくれます。例えば:</p>
 
 <p><span class="csscript"></span></p>
 
@@ -170,7 +172,7 @@ element.addEventListener "click", (e) =&gt; this.clickHandler(e)
 
 <p>なぜこんなことをしたいのかというと、 <code>addEventListener()</code> のコールバックのコンテクストはその <code>element</code> のローカルのコンテクストに変更されるからです。つまり <code>this</code> が その <code>element</code> に置き換えられてしまうのです。もし <code>this</code> をローカルに維持しておきたい場合は、いちいち <code>self = this</code> など書かずに、ふとっちょ矢印を使いましょう</p>
 
-<p>このバインディングのアイデアは jQueryの <a href="http://api.jquery.com/jQuery.proxy/"><code>proxy()</code></a> や <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind">ES5</a>の <code>bind()</code>の関数から来ています。</p> 
+<p>このバインディングのアイデアは jQueryの <a href="http://api.jquery.com/jQuery.proxy/"><code>proxy()</code></a> or <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind">ES5's</a>の <code>bind()</code>の関数から来ています。</p>
 
 <h2>オブジェクトリテラル &amp; 配列の定義</h2>
 
@@ -336,7 +338,7 @@ release prisoner for prisoner in prisoners when prisoner[0] is "R"
 alert("#{first} #{last}") for first, last of names
 </code></pre>
 
-<p<code>while</code> ループのCoffeeScriptにはJavaScriptと同様に使用可能ですが、CoffeeScriptでは結果の配列を返し、<code>Array.prototype.map()</code> と同じ動作をします。</p>
+<p>&lt;p<code>while</code> ループのCoffeeScriptにはJavaScriptと同様に使用可能ですが、CoffeeScriptでは結果の配列を返し、<code>Array.prototype.map()</code> と同じ動作をします。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -432,4 +434,3 @@ alert "Stop wagging me" if "ranks" in words
 </div>
 </body>
 </html>
-
