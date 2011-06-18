@@ -99,7 +99,7 @@ CoffeeScript has a neat alternative to this which Pythonists may recognize, name
     
 ##Min/Max
 
-This technique is not specific to CoffeeScript, but I thought it useful to demonstrate anyway. `Math.max` and `Math.min` take multiple arguments, so you can easily use `...` to pass an array to them, retrieving the maximum and minimum values in the array. 
+このテクニックは、CoffeeScriptに固有のものではありませんが、通常 `Math.max` と `Math.min` は複数の引数を取るのですが、`...` を最後に付けることで、配列を引数として処理する事ができます。
 
 <span class="csscript"></span>
 
@@ -118,13 +118,13 @@ This preference over more English style code also applies to using `is` over `==
     string == string # true
     string is string # true
     
-One extremely nice addition to CoffeeScript is the 'or equals', which is a pattern Rubyists may recognize as `||=`:
+CoffeeScriptでサポートされているとても便利な文法として、 `or equals` があり、Rubyの `||=` に相当します。
     
 <span class="csscript"></span>
 
     hash or= {}
     
-If hash evaluates to `false`, then it's set to an empty object. It's important to note here that this expression also recognizes `0`, `""` and `[]` as false. If that isn't your intention, you'll need to use CoffeeScript's existential operator which only gets activated if `hash` is `undefined` or `null`:
+ハッシュが `false` だと評価された場合、それは空のオブジェクトだということになります。`[]` や `""` さらには `0` も`false`として評価されることに気をつけなくてはいけません。もしそれを意図してない場合は、`hash` が `undefined` または `null` 場合にのみアクティブになるCoffeeScriptの存在確認演算子を使いましょう。
 
 <span class="csscript"></span>
 
@@ -132,15 +132,15 @@ If hash evaluates to `false`, then it's set to an empty object. It's important t
 
 ##Destructuring assignments
 
-Destructuring assignments can be used with any depth of array and object nesting, to help pull out deeply nested properties.
+深くネストされたオブジェクトや配列のプロパティも以下のようにして簡単にアクセスすることが出来ます。
 
     someObject = { a: 'value for a', b: 'value for b' }
     { a, b } = someObject
     console.log "a is '#{a}', b is '#{b}'"
 
-##External libraries
+##External Libraries
 
-Using external libraries is exactly the same as calling functions on CoffeeScript libraries; since at the end of the day everything is compiled down to JavaScript. Using CoffeeScript with [jQuery](http://jquery.com) is especially elegant, due to the amount of callbacks in jQuery's API. 
+最終的には結局JavaScriptにコンパイルされるので、外部ライブラリを使用する場合もCoffeeScriptのライブラリを呼び出すのと全く同じです。 [jQuery](http://jquery.com)をCoffeeScriptで使うときは、jQueryのAPIのコールバックのパターンをよりエレガントに書く事が出来ます。
 
 <span class="csscript"></span>
 
@@ -152,4 +152,4 @@ Using external libraries is exactly the same as calling functions on CoffeeScrip
       $(".el").click ->
         alert("Clicked!")
     
-Since all of CoffeeScript's output is wrapped in an anonymous function, we can set a local `$` alias for `jQuery`. This will make sure that even if jQuery's no conflict mode is enabled and the `$` re-defined, our script will still function as intended. 
+CoffeeScriptからコンパイルされたのコードはすべて、無名関数内にラップされているので、`jQuery`のためのエイリアスである`$`をローカルにセットして使うことが出来ます。

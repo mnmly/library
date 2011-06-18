@@ -45,4 +45,4 @@ CoffeeScriptはブラウザだけにとどまりません。[Node.js](http://nod
 
 見てお分かりの通り、CoffeeScriptのデフォルトの拡張子は <code>.coffee</code> となります。他の言語と同じように、[TextMate](http://macromates.com/)などのエディタで正しい文法ハイライトを付けることができます。TextMateの場合、デフォルトではCoffeeScriptに対応していないので、[こちら](https://github.com/jashkenas/coffee-script-tmbundle)からそのバンドルをインストールする事が出来ます。
 
-このコンパイルステップが「不便…面倒や…」と感じられるかもしれませんが、そうゆうものなのです:D 後ほど自動的にCoffeeScriptをコンパイルする方法をお教えしますので、まずこの言語の文法から見てみましょう。
+このコンパイルステップが「不便…面倒や…」と感じられるかもしれませんが、そうゆうものなのです`:D` 後ほど自動的にCoffeeScriptをコンパイルする方法をお教えしますので、まずこの言語の文法から見てみましょう。

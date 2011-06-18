@@ -133,7 +133,7 @@ included = !!~ string.indexOf "test"
 
 <h2>Min/Max</h2>
 
-<p>This technique is not specific to CoffeeScript, but I thought it useful to demonstrate anyway. <code>Math.max</code> and <code>Math.min</code> take multiple arguments, so you can easily use <code>...</code> to pass an array to them, retrieving the maximum and minimum values in the array.</p>
+<p>このテクニックは、CoffeeScriptに固有のものではありませんが、通常 <code>Math.max</code> と <code>Math.min</code> は複数の引数を取るのですが、<code>...</code> を最後に付けることで、配列を引数として処理する事ができます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -154,14 +154,14 @@ string == string # true
 string is string # true
 </code></pre>
 
-<p>One extremely nice addition to CoffeeScript is the 'or equals', which is a pattern Rubyists may recognize as <code>||=</code>:</p>
+<p>CoffeeScriptでサポートされているとても便利な文法として、 <code>or equals</code> があり、Rubyの <code>||=</code> に相当します。</p>
 
 <p><span class="csscript"></span></p>
 
 <pre><code>hash or= {}
 </code></pre>
 
-<p>If hash evaluates to <code>false</code>, then it's set to an empty object. It's important to note here that this expression also recognizes <code>0</code>, <code>""</code> and <code>[]</code> as false. If that isn't your intention, you'll need to use CoffeeScript's existential operator which only gets activated if <code>hash</code> is <code>undefined</code> or <code>null</code>:</p>
+<p>ハッシュが <code>false</code> だと評価された場合、それは空のオブジェクトだということになります。<code>[]</code> や <code>""</code> さらには <code>0</code> も<code>false</code>として評価されることに気をつけなくてはいけません。もしそれを意図してない場合は、<code>hash</code> が <code>undefined</code> または <code>null</code> 場合にのみアクティブになるCoffeeScriptの存在確認演算子を使いましょう。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -170,16 +170,16 @@ string is string # true
 
 <h2>Destructuring assignments</h2>
 
-<p>Destructuring assignments can be used with any depth of array and object nesting, to help pull out deeply nested properties.</p>
+<p>深くネストされたオブジェクトや配列のプロパティも以下のようにして簡単にアクセスすることが出来ます。</p>
 
 <pre><code>someObject = { a: 'value for a', b: 'value for b' }
 { a, b } = someObject
 console.log "a is '#{a}', b is '#{b}'"
 </code></pre>
 
-<h2>External libraries</h2>
+<h2>External Libraries</h2>
 
-<p>Using external libraries is exactly the same as calling functions on CoffeeScript libraries; since at the end of the day everything is compiled down to JavaScript. Using CoffeeScript with <a href="http://jquery.com">jQuery</a> is especially elegant, due to the amount of callbacks in jQuery's API.</p>
+<p>最終的には結局JavaScriptにコンパイルされるので、外部ライブラリを使用する場合もCoffeeScriptのライブラリを呼び出すのと全く同じです。 <a href="http://jquery.com">jQuery</a>をCoffeeScriptで使うときは、jQueryのAPIのコールバックのパターンをよりエレガントに書く事が出来ます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -192,7 +192,7 @@ $ -&gt;
     alert("Clicked!")
 </code></pre>
 
-<p>Since all of CoffeeScript's output is wrapped in an anonymous function, we can set a local <code>$</code> alias for <code>jQuery</code>. This will make sure that even if jQuery's no conflict mode is enabled and the <code>$</code> re-defined, our script will still function as intended.</p>
+<p>CoffeeScriptからコンパイルされたのコードはすべて、無名関数内にラップされているので、<code>jQuery</code>のためのエイリアスである<code>$</code>をローカルにセットして使うことが出来ます。</p>
 
   </div>
 </div>
