@@ -2,8 +2,9 @@
 <html>
 <head>
 <meta charset=utf-8>
-<title>The Little Book on CoffeeScript - Classes</title>
+<title>ちっちゃいCoffeeScriptの本 - クラス</title>
 <link rel="stylesheet" href="site/site.css" type="text/css" charset="utf-8">
+<link rel="stylesheet" href="site/ja.css" type="text/css" charset="utf-8">
 <link rel="stylesheet" href="site/highlight.css" type="text/css" charset="utf-8">
 <script src="site/jquery.js" type="text/javascript" charset="utf-8"></script>      
 <script src="site/highlight.js" type="text/javascript" charset="utf-8"></script>
@@ -16,32 +17,32 @@
 <body>
 <div id="container">
   <header>
-    <h1><a href="index.html">The Little Book on CoffeeScript</a></h1>
+    <h1><a href="index.html">ちっちゃいCoffeeScriptの本</a></h1>
   </header>
   
   <div id="content">
-    <div class="back"><a href="index.html">&laquo; Back to all chapters</a></div>
+    <div class="back"><a href="index.html">&laquo; チャプターに戻る</a></div>
 
 
-<h1>Classes</h1>
+<h1>クラス</h1>
 
-<p>Classes in JavaScript seem to have the kind of effect that cloves of garlic have to Dracula for some purists; although, let's be honest, if you're that way inclined, you're unlikely to be reading a book on CoffeeScript. However, it turns out that classes are just as damn useful in JavaScript as they are in other languages and CoffeeScript provides a great abstraction.</p>
+<p>JavaScriptにおけるクラスは、多くの人が敬遠しがちなコンセプトですが、あなたがこのCoffeeScriptの本を読んでいる限り、それに対する偏見はそれほど強くないと言えるでしょう。クラスは他の言語と同様にJavaScriptでも非常に便利なものでCoffeeScriptはすばらしい文法でクラスを作る事が出来ます。</p>
 
-<p>Behind the scenes, CoffeeScript is using JavaScript's native prototype to create classes; adding a bit of syntactic sugar for static property inheritance and context persistence. As a developer all that's exposed to you is the <code>class</code> keyword.</p>
+<p>CoffeeScriptはJavaScriptの <code>prototype</code> を使ってクラスが作られています。静的なプロパティとコンテクストの維持に関して簡単な文法も用意されています。簡単なクラスの生成に用意されているのは <code>class</code> キーワードです。</p>
 
 <p><span class="csscript"></span></p>
 
 <pre><code>class Animal
 </code></pre>
 
-<p>In the example above, <code>Animal</code> is the name of the class, and also the name of the resultant variable that you can use to create instances. Behind the scenes CoffeeScript is using construction functions which means you can instantiate classes using the <code>new</code> operator.</p>
+<p>上の例では <code>Animal</code> はクラス名で、インスタンスを作るときに用いる名前となります。CoffeeScriptでクラスからインスタンスを作るには <code>new</code> キーワードを使い、この時にコンストラクタが呼び出されます。</p>
 
 <p><span class="csscript"></span></p>
 
 <pre><code>animal = new Animal
 </code></pre>
 
-<p>Defining constructors (functions that get invoked upon instantiation) is simple, just use a function named <code>constructor</code>. This is akin to using's Ruby's <code>initialize</code> or Python's <code>__init__</code>.</p>
+<p>コンストラクタ(インスタンスが生成されるときに呼ばれる関数)を定義するには、シンプルに <code>constructor</code> という名前に関数を作るだけです。Rubyの <code>initialize</code> やPythonの <code>__init__</code> と同じようなものだとお考えください。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -50,7 +51,7 @@
     @name = name
 </code></pre>
 
-<p>In fact, CoffeeScript provides a shorthand for the common pattern of setting instance properties. By prefixing argument's with <code>@</code>, CoffeeScript will automatically set the arguments as instance properties in the constructor. Indeed, this shorthand will also work for normal functions outside classes. The example below is equivalent to the last example, where we set the instance properties manually.</p>
+<p>実際にはCoffeeScriptはインスタンスのプロパティの設定には、共通のパターンが用意されています。 <code>@</code> を付けることでその変数はインスタンスのプロパティになり、引数に直接 <code>@</code> を付けてもまた同様です。クラスの生成の時だけでなく、普通の関数に対してもこのテクニックが使えます。下の例は上の例と結果は同じですが、今回はインスタンスプロパティを引数から直接設定しています。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -58,7 +59,7 @@
   constructor: (@name) -&gt;
 </code></pre>
 
-<p>As you'd expect, any arguments passed on instantiation are proxied to the constructor function.</p>
+<p>お分かりだと思いますが、クラスの生成時に渡された引数はすぐにこのコンストラクタに渡されます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -66,9 +67,9 @@
 alert "Animal is a #{animal.name}"
 </code></pre>
 
-<h2>Instance properties</h2>
+<h2>インスタンスプロパティ</h2>
 
-<p>Adding additional instance properties to a class is very straightforward, it's exactly the syntax as adding properties onto an object. Just make sure properties are indented correctly inside the class body.</p>
+<p>クラスに新たなインスタンスプロパティを追加するのも非常に簡単で、オブジェクトにプロパティを追加するのと全く同じ文法です。クラスに対して、きちんとインデントすることだけ注意しましょう。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -81,7 +82,7 @@ animal = new Animal
 animal.sell(new Customer)
 </code></pre>
 
-<p>Context changes are rife within JavaScript, and earlier in the Syntax chapter we talked about how CoffeeScript can lock the value of <code>this</code> to a particular context using a fat arrow function: <code>=&gt;</code>. This ensures that whatever context a function is called under, it'll always execute inside the context it was created in. CoffeeScript has extended support for fat arrows to classes, so by using a fat arrow for an instance method you'll ensure that it's invoked in the correct context, and that <code>this</code> is always equal to the current instance.</p>
+<p>コンテクストの変更はJavaScriptでは頻繁に起こりますが、前回の文法の節でふれたように、CoffeeScriptではふとっちょ矢印 ( <code>=&gt;</code> ) を使う事で <code>this</code> を特定のコンテクストに固定する事ができます。これによって、この関数のコンテクストは常に、その関数が作られたときのコンテクストを維持してくれます。CoffeeScriptのクラスではこのふとっちょ矢印の動作がすこし拡張され、インスタンスメソッドにふとっちょ矢印を使うとその <code>this</code> は現在のインスタンスに固定されます。</p> 
 
 <p><span class="csscript"></span></p>
 
@@ -95,11 +96,11 @@ animal = new Animal
 $("#sell").click(animal.sell)
 </code></pre>
 
-<p>As demonstrated in the example above, this is especially useful in event callbacks. Normally the <code>sell()</code> function would be invoked in the context of the <code>#sell</code> element. However, by using fat arrows for <code>sell()</code>, we're ensuring the correct context is being maintained, and that <code>this.price</code> equals <code>5</code>.</p>
+<p>上の例のように、このテクニックはイベントのコールバックに非常に便利です。普通 <code>sell()</code> のコンテクストは <code>#sell</code> エレメントをコンテクストとして設定されてしまいます。しかし、ふとっちょ矢印をつかうことで <code>sell()</code> のコンテクストは常にそのインスタンスに維持され、 <code>this.price</code> もインスタンスプロパティである <code>5</code> となります。</p>
 
-<h2>Static properties</h2>
+<h2>静的プロパティ</h2>
 
-<p>How about defining class (i.e. static) properties? Well, it turns out that inside a class definition, <code>this</code> refers to the class object. In other words you can set class properties by setting them directly on <code>this</code>.</p>
+<p>それでは、クラスプロパティ(静的プロパティ)はどうでしょう？クラスの定義の中で <code>this</code> はクラスオブジェクトを参照しているので、つまりクラスプロパティを設定するには <code>this</code> に直接設定してやればいいのです。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -109,7 +110,7 @@ $("#sell").click(animal.sell)
 Animal.find("Parrot")
 </code></pre>
 
-<p>In fact, as you may remember, CoffeeScript aliases <code>this</code> to <code>@</code>, which lets you write static properties even more succinctly:</p>
+<p>また、CoffeeScriptでは <code>this</code> のエイリアスとして <code>@</code> が用意されているので、もっと簡単にこのように書く事も出来ます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -119,9 +120,9 @@ Animal.find("Parrot")
 Animal.find("Parrot")
 </code></pre>
 
-<h2>Inheritance &amp; Super</h2>
+<h2>継承とスーパー</h2>
 
-<p>It wouldn't be a proper class implementation without some form of inheritance, and CoffeeScript doesn't disappoint. You can inherit from another class by using the <code>extends</code> keyword. In the example below, <code>Parrot</code> extends from <code>Animal</code>, inheriting all of its instance properties, such as <code>alive()</code></p>
+<p>継承の機能なくして、きちんとしたクラスとは言えません。CoffeeScriptはそこもきちんとカバーしています。継承をするには <code>extends</code> キーワードを使います。下の例では、 <code>Parrot</code> は <code>Animal</code> から継承しています。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -139,11 +140,11 @@ class Parrot extends Animal
     not @alive()
 </code></pre>
 
-<p>You'll notice that in the example above, we're using the <code>super()</code> keyword. Behind the scenes, this is translated into a function call on the class' parent prototype, invoked in the current context. In this case, it'll be <code>Parrot.__super__.constructor.call(this, "Parrot");</code>. In practice, this will have exactly the same effect as invoking <code>super</code> in Ruby or Python, invoking the overridden inherited function.</p>
+<p>ここでは <code>super()</code> キーワードを使っています。どのようにこれが機能しているかというと、クラスの親の <code>prototype</code> に対して関数を呼び出しているので、現在のコンテクストが使われています。つまり、この例では、 <code>Parrot.__super__.constructor.call(this, "Parrot");</code> が呼ばれていることになります。実際には RubyやPythonの <code>super</code> と全く同じ機能を果たしていると言えます。</p>
 
-<p>Unless you override the <code>constructor</code>, by default CoffeeScript will invoke the parent's constructor when instances are created.</p>
+<p><code>constructor</code> をオーバーライドしない限り、CoffeeScriptはインスタンス生成時に、デフォルトで親のコンストラクタを呼び出します。</p>
 
-<p>CoffeeScript uses prototypal inheritance to automatically inherit all of a class's instance properties. This ensures that classes are dynamic; even if you add properties to a parent class after a child has been created, the property will still be propagated to all of its inherited children.</p>
+<p>CoffeeScriptはプロトタイプの継承を使って自動的にクラスのインスタンスプロパティへと変換します。これによってクラスが常にダイナミックで、たとえ子のクラスが作られた後に、親のクラスに新しいプロパティを追加したとしても、これを親としている全ての子クラスにこのプロパティは反映されます。</p>
 
 <p><span class="csscript"></span></p>
 
@@ -158,11 +159,11 @@ parrot = new Parrot("Macaw")
 alert("This parrot is no more") if parrot.rip
 </code></pre>
 
-<p>It's worth pointing out though that static properties are copied to subclasses, rather than inherited using prototype as instance properties are. This is due to implementation details with JavaScript's prototypal architecture, and is a difficult problem to work around.</p>
+<p>ここで注意すべきなのは、静的プロパティはインスタンスプロパティのようにプロトタイプを用いて継承されているのではなく、サブクラスにコピーされています。 これは、JavaScriptそのもののアーキテクチャと実装の特性であり、この問題を回避する事は非常に難しい課題となっています。</p>
 
 <h2>Mixins</h2>
 
-<p><a href="http://en.wikipedia.org/wiki/Mixin">Mixins</a> are not something supported natively by CoffeeScript, for the good reason that they can be trivially implemented. For example, here's two functions, <code>extend()</code> and <code>include()</code> that'll add class and instance properties respectively to a class.</p>
+<p><a href="http://ja.wikipedia.org/wiki/Mixin">Mixins</a>はCoffeeScriptでネイティブにサポートされている訳ではありませんが、下の例のように簡単に実装する事が可能です。<!-- For example, here's two functions, <code>extend()</code> and <code>include()</code> that'll add class and instance properties respectively to a class.--></p>
 
 <p><span class="csscript"></span></p>
 
@@ -180,7 +181,7 @@ include Parrot,
 (new Parrot).isDeceased
 </code></pre>
 
-<p>Mixins are a great pattern for sharing common logic between modules when inheritance is not suited. The advantage of mixins, is that you can include multiple ones, compared to inheritance where only one class can be inherited from.</p>
+<p>Mixinsは継承が適切ではないときに、モジュール間での共通のロジックを共有するのに優れたパターンです。一つのクラスしか追加できない継承に対して、複数のMixinを追加すことができる点はこのパターンの長所と言えます。</p>
 
   </div>
 </div>
