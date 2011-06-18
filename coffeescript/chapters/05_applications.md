@@ -1,49 +1,50 @@
 <div class="back"><a href="index.html">&laquo; Back to all chapters</a></div>
 
-#Creating Applications
+#Creating Application
 
-Now you've been given an overview of the syntax, lets explore actually structuring and creating CoffeeScript applications. This section aims to be useful to all CoffeeScript developers, novice or advanced. Indeed, it should be relevant to pure JavaScript developers too. 
+さてここまでCoffeeScriptの構文をみてきたので、実際にCoffeeScriptのアプリケーションを作ってみましょう。この節では初心者でも熟練者でも分かりやすいように解説していきます。純粋なJavaScriptのデベロッパーの方にも学んでいただけるでしょう。
 
-For some reason, when developers are building client side JavaScript applications, tried and tested patterns and conventions often fly out the window, and the end result is a spaghetti mess of un-maintainable coupled JavaScript. I can't stress enough how important application architecture is; if you're writing any JavaScript/CoffeeScript beyond simple form validation you should implement a form of application structure, such as [MVC](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller). 
+デベロッパーのみなさんがクライアントサイドのアプリケーションを作るときになると、デザインパターンなどは忘れ去られてしまい結果的には管理しづらいスパゲッティコードになってしまっています。アプリケーションのアーキテクチャは非常に重要なポイントで、シンプルなフォームバリデーション以上のものをCoffeeScript/JavaScriptで作ろうと思えば、[MVC](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)のような何らかのアプリケーションのアーキテクチャパターンを用いることをお勧めします。
 
-The secret to building maintainable large applications is not to build large applications. In other words, build a series of modular de-coupled components. Keep application logic as generic as possible, abstracting it out as appropriate. Lastly separate out your logic into views, models and controllers (MVC). Implementing MVC is beyond the scope of this chapter, for that I recommend you check out my book on [JavaScript Web Applications](http://oreilly.com/catalog/9781449307530/) and use a framework like [Backbone](http://documentcloud.github.com/backbone/) or [Spine](https://github.com/maccman/spine). Rather than that, here we're going to cover structuring applications using CommonJS modules.
+大規模の管理可能なアプリケーションを作る秘訣は、モジュールからなるカップルされていないコンポーネントを連なりをつくることにあります。アプリケーションのロジックを出来る限り包括的なものにとどめ、適切に抽象化することが重要です。おすすめの本として挙げられるのは、[JavaScript Web Applications](http://oreilly.com/catalog/9781449307530/)があり、おすすめのフレームワークとして[Backbone](http://documentcloud.github.com/backbone/) or [Spine](https://github.com/maccman/spine)も挙げられます。今回の節ではCommonJSモジュールを使ってアプリケーションを作っていきたいと思います。
+
 
 ##Structure & CommonJS
 
-So what exactly are CommonJS modules? Well, If you've used [NodeJS](http://nodejs.org/) before you've used CommonJS modules, probably without realizing it. CommonJS modules were initially developed for writing server side JavaScript libraries, in an attempt to deal with loading, namespacing and scoping issues. They were a common format which would be compatible across all JavaScript implementations. The aim was that a library written for [Rhino](http://www.mozilla.org/rhino/) would work for Node. Eventually these ideas transitioned back to browsers, and now we have great libraries like [RequireJS](http://requirejs.org) and [Yabble](https://github.com/jbrantly/yabble) to use modules client-side. 
+ではそのCommonJSモジュールとは何なんでしょうか？ CommonJSは使ったことないけど、[NodeJS](http://nodejs.org/)は使ったことがあるという方であれば、実はもうCommonJSを使っているのです。CommonJSモジュールは最初はサーバサイドのJavaScriptライブラリを書くのに開発されたもので、ローディングや名前空間、スコープの問題を解決するために作られました。またどのJavaScriptアプリケーションでも準拠できるようにできています。[Rhino](http://www.mozilla.org/rhino/)向けに書かれたライブラリをNodeでも動くようにすることが目的でした。最終的にはこのアイデアはクライアント側に戻ってきて、今では[RequireJS](http://requirejs.org) や [Yabble](https://github.com/jbrantly/yabble) などのクライアントサイドでモジュールが使えるようになるライブラリも開発されてきました。
 
-Practically speaking, modules ensure that your code is run in a local namespace (code encapsulation), that you can load other modules with the `require()` function, and expose module properties via `module.exports`. Let's dive into that in a bit more depth now. 
+現実的には、モジュールはあなたの書いたコードがローカルの名前空間(コードのカプセル化)で動き、また `require()` によって読み込まれた他のモジュールも使うことができ、かつモジュールのプロパティを `module.exports` でエクスポートすることもできます。ではもう少し踏み込んでみてみましょう。
 
 ###Requiring files
 
-You can load in other modules and libraries using `require()`. Simply pass a module name and, if it's in the load path, it'll return a object representing that module. For example:
+`require()` で他のライブラリ・モジュールを読み込むことが出来ます。モジュール名を引数に渡し、読み込みが成功するとそのモジュールをオブジェクトとして返します。
 
     var User = require("models/user");
     
-Synchronous require support is a contentious issue, but has mostly be resolved with the mainstream loader libraries and latest CommonJS [proposals](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition). It may be something you'll have to look into if you decided to take a separate route than the one I'm advocating with Stitch below. 
+同期のrequireのサポートはまだ議論中ですが、主要なローダーライブラリや直近のCommonJSの[提案](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition)ではおおよそ解決されています。もしここで使われているStitchとは違った他のオプションを使いたい場合は、ご自身で調べてみるのもいいでしょう。
 
 ###Exporting properties
 
-By default, modules don't expose any properties so their contents are completely invisible to `require()` calls. If you want a particular property to be accessible from your module, you'll need to set it on `module.exports`:
+デフォルトでは、 `require()` ではモジュールのプロパティを見ることができません。もし特定のプロパティをアクセス可能にするには `module.export` に設定する必要があります。
 
     // random_module.js
     module.exports.myFineProperty = function(){
       // Some shizzle
     }
     
-Now, whenever this module is required then `myFineProperty` will be exposed:
+モジュールが読み込まれたときには `myFineProperty`　がアクセス可能になっているはずです。
 
     var myFineProperty = require("random_module").myFineProperty;
 
 ##Stitch it up
 
-Formatting your code as CommonJS modules is all fine and dandy, but how do you actually get this working on the client in practice? Well, my method of choice is the rather unheard of [Stitch](https://github.com/sstephenson/stitch) library. Stitch is by Sam Stephenson, the mind behind [Prototype.js](http://www.prototypejs.org) amongst other things, and solves the module problem so elegantly it makes me want to dance for joy! Rather than try and dynamically resolve dependencies, Stitch simply bundles up all your JavaScript files into one, wrapping them in some CommonJS magic. Oh, and did I mention it'll compile your CoffeeScript, JS templates, [LESS CSS](http://lesscss.org) and [Sass](http://sass-lang.com) files too!
+ソースコードをCommonJSモジュールとして扱うのは非常に分かりやすく簡単なのですが、ではこれをどうしてクライアントサイドで使えばいいのでしょうか？私個人の選択としてはそんなに知られていない[Stitch](https://github.com/sstephenson/stitch)を使いたいと思います。このライブラリは[Prototype.js](http://www.prototypejs.org)の作者であるSam Stephensonによって開発され、モジュールに関わる問題をエレガントに解決してくれています。ダイナミックにdependencyを解決するより、Stitchは単純に全てのJavaScriptを一つにまとめてくれ、それらをCommonJSの魔法をかけてくれるのです。いい忘れていたかもしれませんが、StitchはCoffeeScriptだけでなく、JSテンプレート、[LESS CSS](http://lesscss.org) や [Sass](http://sass-lang.com)もコンパイルしてくれるのです！
 
-First things first, let's get Stitch installed. You'll need to install [Node.js](http://nodejs.org/) and [npm](http://npmjs.org/) if you haven't already, then run:
+手始めとして、まずStitchをインストールしましょう。もちろん[Node.js](http://nodejs.org/) と [npm](http://npmjs.org/)はインストールしておいてください。
 
     npm install stitch
     
-Now let's create our application structure. If you're using [Spine](https://github.com/maccman/spine), you can automate this with [Spine.App](http://github.com/maccman/spine.app), otherwise it's something you'll need to do manually. I usually have an `app` folder for all the application specific code, and a `lib` folder for general libraries. Then anything else, including static assets, goes in the `public` directory.
+さてアプリケーションのストラクチャを作ってみましょう。もし[Spine](https://github.com/maccman/spine)を使っている場合は、[Spine.App](http://github.com/maccman/spine.app)で自働化できますが、そうでない場合は手動でしましょう。私の場合は通常 `app` フォルダにアプリケーション関連のコードを置き、`lib` フォルダに一般的なライブラリ群を、静的なファイルなどその他のファイルは `public` に置いています。
 
     app/controllers
     app/views
@@ -55,7 +56,7 @@ Now let's create our application structure. If you're using [Spine](https://gith
     public/css
     public/css/views
 
-Now to actually boot up the Stitch server. Let's create a file called `server.js` and fill it with the following script:
+そしてStitchサーバを立ち上げます。`server.js` を以下のコードで保存してみましょう。
 
     #!/usr/bin/env node
     var stitch  = require('stitch'),
@@ -95,7 +96,7 @@ Now to actually boot up the Stitch server. Let's create a file called `server.js
     util.puts("Starting server on port: " + port);
     app.listen(port);
 
-Rightio, we're almost there. Now if you invoke `server.js` with Node you'll hopefully have a Stitch server up and running. Let's go ahead and test it out by putting an `app.coffee` script in the `app` folder. This will be the file that'll bootstrap our application.
+さて、あと少しです！ここで `server.js` をNodeで走らせると、Stitchサーバが立ち上がるでしょう。では `app` フォルダに `app.coffee` を作りましょう。このファイルが私たちのアプリケーションをブーストラップしてくれるファイルになります。
 
 <span class="csscript"></span>
 
@@ -103,7 +104,7 @@ Rightio, we're almost there. Now if you invoke `server.js` with Node you'll hope
       init: ->
         # Bootstrap this mofo
         
-Now let's create our main page `index.html` which, if we're building a single page app, will be the only page the user actually navigates to. This is a static asset, so it's under the `public` directory.
+では次はメインページになる `index.html` です。もしシングルページアプリケーションにする場合は、このページ唯一ユーザに見られるページとなります。これは静的なページなので `public` フォルダに置いておきましょう。 
   
     <!DOCTYPE html>
     <html>
@@ -124,7 +125,7 @@ Now let's create our main page `index.html` which, if we're building a single pa
     </body>
     </html>
 
-When the page loads, our inline jQuery callback is requiring the `app.coffee` script (which is automatically compiled), and invoking our `init()` function. That's all there is to it, we've got CommonJS modules up and running, as well as a HTTP server and CoffeeScript compiler. If, say, we wanted to include a module, it's just a case of calling `require()`.
+ページが読み込まれると、インラインのjQueryコールバックが `app.coffee` を読み込み(ファイルは自動的にコンパイルされます)、そして `init()` が呼ばれます。たったこれだけでCommonJSモジュールを走らせ、HTTPサーバも立ち上げ、さらにはCoffeeScriptもコンパイルしてくれるのです。もし他のモジュールを読み込みたい場合は、単に `require()` を呼ぶだけです。
 
 <span class="csscript"></span>
 
@@ -137,9 +138,9 @@ When the page loads, our inline jQuery callback is requiring the `app.coffee` sc
 
 ##JavaScript templates
 
-If you're moving logic to the client side, then you'll definitely need some sort of templating library. JavaScript templating is very similar to templates on the server, such as Ruby's ERB or Python's text interpolation, expect of course it runs client side. There are a whole host of templating libraries out there, so I encourage you to do some research and check them out. By default, Stitch comes with support for [eco](https://github.com/sstephenson/eco) templates baked right in. However, if you're using another templating library don't despair. Stitch has a rather neat feature which lets you add custom compilers for particular extensions.
+クライアントサイドにロジックを移すときは、ある種のテンプレートライブラリが必要になってきます。JavaScriptテンプレートはサーバサイドのテンプレートと非常に似たもので、それがサーバ側で生成されていないことを除けば、RubyのERBやPythonのTextInterpolationと同じです。デフォルトとして、Stitchは[eco](https://github.com/sstephenson/eco)というテンプレートライブラリを使うことが出来ます。もし、他のテンプレートライブラリを使いたい場合でも、Stitchにカスタムコンパイラを追加し、特定のエクステンションをコンパイルすることもできるので安心してください。
 
-For example, let's add support for the [jQuery.tmpl](http://api.jquery.com/jquery.tmpl/) library, which I often use instead of eco due to a few implementation details:
+例として、[jQuery.tmpl](http://api.jquery.com/jquery.tmpl/)ライブラリのサポートを追加してみましょう。
 
     stitch.compilers.tmpl = function(module, filename) {
       var content = fs.readFileSync(filename, 'utf8');
@@ -148,33 +149,33 @@ For example, let's add support for the [jQuery.tmpl](http://api.jquery.com/jquer
       return module._compile(content, filename);
     };
 
-Notice that above we're setting a function on `module.exports` which, when called, will render our template. Now, let's define a template in `views/users/show.tmpl`:
+お気づきのように、上のコードでは `module.exports` に呼ばれるとテンプレートをレンダリングする関数が当ててあります。では、`views/users/show.tmpl` にテンプレートを作ってみましょう。
     
     <label>Name: ${name}</label>
     
-Since we defined a `tmpl` compiler handler, Stitch will automatically compile our template and include it in `application.js`. Then, in our application's controllers we can require the template, like it was a module, and execute it passing any data required. 
+`tmpl` コンパイラハンドラーを定義したので、Stitchは自動的にテンプレートをコンパイルしそれを `application.js` に追加します。
     
     require("views/users/show")(new User("name"))
     
 ##Bonus - 30 second deployment with Heroku
 
-[Heroku](http://heroku.com/) is an incredibly awesome web host that manages all the servers and scaling for you, letting you get on with the exciting stuff (building awesome JavaScript applications). You'll need an account with Heroku for this tutorial to work, but the great news is that their basic plan is completely free. While traditionally a Ruby host, Heroku have recently released their Cedar stack which includes Node support. 
+[Heroku](http://heroku.com/)は素晴らしいホスティングでサーバとスケーリングを全て管理してくれ、すばらしいJavaScriptアプリケーションをホストしてくれるなど、エキサイティングなサービスをしてくれます。このチュートリアルを動かすにはHerokuでアカウントを作る必要がありますが、ベーシックプランは完全に無料なので試してみてください。一般的にはRubyのホスティングとして使われていますが、HorokuはCederスタックをリリースしてNodeも動かすことが出来るようになりました。
 
-Firstly we need to make a `Procfile`, which will inform Heroku about our application.
+最初に `Procfile` を作りましょう。このファイルはHerokuにこのアプリケーションについての情報を伝えてくれるファイルとなります。
 
     echo "web: node server.js" > Procfile
 
-Now, if you haven't already, you'll need to create a local git repository for your application. 
+アプリケーションのディレクトリにローカルのgitレポジトリを作りましょう。
 
     git init
     git add .
     git commit -m "First commit"    
     
-And now to deploy the application, we'll use the `heroku` gem (which you'll need to install if you haven't already).
+そして、このアプリケーションをデプロイするには、 `heroku` gem を使います。(もしインストールされていないなら、`gem install heroku` でインストールしましょう。)
 
     heroku create myAppName --stack cedar
     git push heroku master
     heroku ps:scale web=1
     heroku open
     
-That's it! Seriously, that's all there is to it. Hosting Node applications has never been easier.
+これでおしまいです。ほんっとに、これだけです`:D` Nodeアプリケーションのホスティングはこれまでになく簡単になりました。
