@@ -1,48 +1,48 @@
 <div class="back"><a href="index.html">&laquo; Back to all chapters</a></div>
 
-#What is CoffeeScript?
+#CoffeeScriptって何?
 
-[CoffeeScript](http://coffeescript.org) is a little language that compiles down to JavaScript. The syntax is inspired by Ruby and Python, and implements many features from those two languages. This book is designed to help you learn CoffeeScript, understand best practices and start building awesome client side applications. The book is little, only five chapters, but that's rather apt as CoffeeScript is a little language too. 
+[CoffeeScript](http://coffeescript.org)とはJavaSciptに書き換えてくれる便利な言語のことです。 文法はRubyやPythonに影響を受けていて、この二つの言語の様々な特徴を備えています。 この本は、読者の方に、CoffeeScript、そのベストプラクティスを学んで頂き、素晴らしいクライアントアプリケーションを作り始めてもらいたいという意図で書かれています。この本は小さく5チャプターしかないですが、それはCoffeeScriptそのものが小さいからなのです。
 
-This book is completely open source, and was written by [Alex MacCaw](http://alexmaccaw.co.uk) (or [@maccman](http://twitter.com/maccman)) with great  contributions from [David Griffiths](https://github.com/dxgriffiths), [Satoshi Murakami](http://github.com/satyr), and [Jeremy Ashkenas](https://github.com/jashkenas).
+この本は完全にオープンソース形式となっており、 [Alex MacCaw](http://alexmaccaw.co.uk) ([@maccman](http://twitter.com/maccman))によって書かれ、[David Griffiths](https://github.com/dxgriffiths), [Satoshi Murakami](http://github.com/satyr) や [Jeremy Ashkenas](https://github.com/jashkenas)の協力を得て書かれています。
 
-If you have any errata or suggestions, please don't hesitate to open a ticket on the book's [GitHub page](https://github.com/arcturo/library). Readers may also be interested in [JavaScript Web Applications by O'Reilly](http://oreilly.com/catalog/9781449307530/), a book that explores rich JavaScript applications and moving state to the client side. 
+もし誤字脱字、提案などがある場合はこの本の[GitHub ページ](https://github.com/arcturo/library)でお願いします。 ご興味のある方は [JavaScript Web Applications by O'Reilly](http://oreilly.com/catalog/9781449307530/)というリッチなクライアントサイドのJavaScriptアプリケーションに関する本も参照ください。
 
-So let's dive right into it; why is CoffeeScript better than writing pure JavaScript? Well for a start, there's less code to write - CoffeeScript is very succinct, and takes white-space into account. In my experience this reduces code by a third to a half of the original pure JavaScript. In addition, CoffeeScript has some neat features, such as array comprehensions, prototype aliases and classes that further reduce the amount of typing you need to do. 
+さて、始めましょう。ではなぜJavaScriptよりCoffeeScriptなのか？それは、まず第一に「たくさん書かなくてよい」ことが挙げられます。CoffeeScriptは非常にコンパクトで、空白が用いられているのが特徴です。私の経験では、普通のJavaScriptの⅓から½までコードを削る事が出来ます。さらに、CoffeeScriptには様々な便利な要素が備わっていて、配列の内包表記(Array Comprehension)、プロトタイプ(prototype)エイリアスやクラス(Class)などにより、今まで書いてきたコードをさらに減らす事も可能なのです。
 
-More importantly though, JavaScript has a lot of [skeletons in its closet](http://bonsaiden.github.com/JavaScript-Garden/) which can often trip up un-experienced developers. CoffeeScript neatly sidesteps these, by only exposing a curated selection of JavaScript features, fixing many of the language's oddities. 
+さらに重要なのは、JavaScriptにはよく経験不足なデベロッパーつまずいてしまう多くの[隠したい事実](http://bonsaiden.github.com/JavaScript-Garden/)が存在します。CoffeeScriptはきちんとこれらを回避し、JavaScriptを良い部分だけ厳選し、おかしな部分を直してくれるのです。
 
-CoffeeScript is *not* a superset of JavaScript, so although you can use external JavaScript libraries from inside CoffeeScript, you'll get syntax errors if you compile JavaScript as-is, without converting it. The compiler converts CoffeeScript code into its counterpart JavaScript, there's no interpretation at runtime. 
+CoffeeScriptはJavaScriptの上に位置するものではありません。CoffeeScriptからJavaScriptで書かれた外部のライブラリを使う事が出来る一方で、変換せずにそのままJavaScriptをCoffeeScriptに変換しようとすると文法エラー(Syntax Error)を受けてしまいます。
 
-First to get some common fallacies out the way. You will need to know JavaScript in order to write CoffeeScript, as runtime errors require JavaScript knowledge. However, having said that, runtime errors are usually pretty obvious, and so far I haven't found mapping JavaScript back to CoffeeScript to be an issue. The second problem I've often heard associated with CoffeeScript is speed; i.e. the code produced by the CoffeeScript compiler would run slower than it's equivalent written in pure JavaScript. In practice though, it turns out this isn't a problem either. CoffeeScript tends to run as fast, or faster than hand-written JavaScript.
+コンパイラはCoffeeScriptのコードを対応するJavaScriptに変換してくれるだけで、ランタイムでのインタプリテーションはありません。 勘違いしやすい落とし穴を解決していきましょう。 第一に、CoffeeScriptを書くにはJavaScriptを知っている必要があります。なぜなら、実行時にはどうしてもJavaScriptの知識が必要だからです。しかし、そうはいってもランタイムエラーは大抵見つけやすく、自身、「JavaScriptのエラーがCoffeeScriptのどこから来ているのか分からなくなった」などの問題は今までありません。 第二に、CoffeeScriptについての間違った見解としては速度の問題です。つまり、CoffeeScriptによってコンパイルされたコードは純粋なJavaScriptで書かれたものより遅いんじゃないかというものです。これもまた、実際に全く問題ではありません。CoffeeScriptは普通に書かれたJavaScriptよりむしろ速い傾向があります。
 
-What are the disadvantages of using CoffeeScript? Well, it introduces another compile step between you and your JavaScript. CoffeeScript tries to mitigate the issue as best it can by producing clean and readable JavaScript, and with its server integrations which automate compilation. The other disadvantage, as with any new language, is the fact that the community is still small at this point, and  you'll have a hard time finding fellow collaborators who already know the language. CoffeeScript is quickly gaining momentum though, and its IRC list is well staffed; any questions you have are usually answered promptly. 
+では、CoffeeScriptを使う上での不利な点はなんでしょうか？あえて挙げるとすれば、JavsScriptとあなたのコードにコンパイルするというステップが加わるということでしょうか。CoffeeScriptはきれいで読みやすいJavaScriptにコンパイルする事、サーバとの統合によって、自動的にコンパイルもしてくれるので、このステップは出来る限り小さくされています。もう一つは、新しい言語にはいつも共通する問題ですが、コミュニティがまだ小さいために既に知っている人を見つけるのが難しいといった問題もあります。ただ、CoffeeScriptは速いスピードで勢いを増してきていますし、IRCではどんな質問でも素早く返信されます。
 
-CoffeeScript is not limited to the browser, and can be used to great effect in server side JavaScript implementations, such as [Node.js](http://nodejs.org/).   Additionally, CoffeeScript is getting much wider use and integration, such as being a default in Rails 3.1. Now is definitely the time to jump on the CoffeeScript train, and you'll thank yourself for the time invested in learning about the language now, in lieu of the major time savings you'll make later. 
+CoffeeScriptはブラウザだけにとどまりません。[Node.js](http://nodejs.org/)のようなサーバサイドのJavaScriptにも使う事が出来ます。さらに、CoffeeScriptはRails3.1でデフォルトになったように広く用いられ、統合され始めています。CoffeeScriptの電車に飛び乗るにはいい機会ではないでしょうか？今この小さな言語を学ぶのに少しの時間を費やせば、それから節約され、生み出された多くの時間をありがたく感じると思います。
 
-##Initial setup
+##セットアップ方法
 
-One of the easiest ways to initially play around with the library is to use it right inside the browser. Navigate to [http://coffeescript.org](http://coffeescript.org) and click on the *Try CoffeeScript* tab. The site uses a browser version of the CoffeeScript compiler, converting any CoffeeScript typed inside the left panel, to JavaScript in the right panel.
+一番手っ取り早い方法はブラウザでそのまま遊んでみる方法です。[http://coffeescript.org](http://coffeescript.org)へ飛び、 <em>Try CoffeeScript</em> タブをクリックしてください。ブラウザバージョンのCoffeeScriptコンパイラで左側に打ち込んだコードが右側にJavaScriptとして書き出されます。
 
-In fact you can use browser based compiler yourself, by including [this script](http://jashkenas.github.com/coffee-script/extras/coffee-script.js) in a page, marking up any CoffeeScript script tags with the correct `type`.
+さらに、自身でもこのブラウザベースのコンパイラを使うことが出来るので、[このスクリプト](http://jashkenas.github.com/coffee-script/extras/coffee-script.js) をページに埋め込み、正確な `type` でCoffeeScriptを書いてみましょう。
 
     <script src="http://jashkenas.github.com/coffee-script/extras/coffee-script.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/coffeescript">
       # Some CoffeeScript
     </script>
     
-Obviously, in production, you don't want to be interpreting CoffeeScript at runtime, as it'll slow thing up for your clients, so CoffeeScript offers a [Node.js](http://nodejs.org) compiler to pre-process CoffeeScript files.
+プロダクションの段階ではブラウザをいじめるランタイムでのコンパイルは避けた方がいいので、[Node.js](http://nodejs.org)のコンパイラでCoffeeScriptファイルを変換する事が出来ます。
 
-To install it, first make sure you have a working copy of the latest stable version of [Node.js](http://nodejs.org), and [npm](http://npmjs.org/) (the Node Package Manager). You can then install CoffeeScript with npm:
+インストールには、もちろん最新の安定版[Node.js](http://nodejs.org)がインストールされていて、[npm](http://npmjs.org/) (the Node Package Manager)も同時にインストールされている必要があります。npmでCoffeeScriptをインストールするには、
 
     npm install coffee-script
     
-This will give you a `coffee` executable. If you execute it without any command line options, it'll give you the CoffeeScript console, which you can use to quickly execute CoffeeScript statements. To pre-process files, pass the `--compile` option.
+これで `coffee` が実行可能になりました。Terminalで `coffee` と打つと、CoffeeScriptコンソールが起動し、すぐにCoffeeScriptのコードを実行する事が出来ます。コンパイルするには、 `--compile` オプションを付けて以下のようにしてください。
 
     coffee --compile my-script.coffee
     
-If `--output` is not specified, CoffeeScript will write to a JavaScript file with the same name, in this case `my-script.js`. This will overwrite any existing files, so be careful you're not overwriting any JavaScript files unintentionally. For a full list of the command line options available, pass `--help`.
+`--output` オプションが指定されていない場合、CoffeeScriptは同じ名前でJavaScriptを保存します。(上記の例の場合は,  `my-script.js` ) この操作は既存のファイルを上書きしてしまうので注意してください。
 
-As you can see above, the default extension of CoffeeScript files is `.coffee`. Amongst other things, this will allow text editors like [TextMate](http://macromates.com/) to work out which language the file contains, giving it the appropriate syntax highlighting. By default, TextMate doesn't include support for CoffeeScript, but you can easily install the [bundle to do so](https://github.com/jashkenas/coffee-script-tmbundle).
+見てお分かりの通り、CoffeeScriptのデフォルトの拡張子は <code>.coffee</code> となります。他の言語と同じように、[TextMate](http://macromates.com/)などのエディタで正しい文法ハイライトを付けることができます。TextMateの場合、デフォルトではCoffeeScriptに対応していないので、[こちら](https://github.com/jashkenas/coffee-script-tmbundle)からそのバンドルをインストールする事が出来ます。
 
-If all this compilation seems like a bit of a inconvenience and bother, that's because it is. We'll be getting onto ways to solve this by automatically compiling CoffeeScript files when they're first requested, but first lets take a look at the languages's syntax. 
+このコンパイルステップが「不便…面倒や…」と感じられるかもしれませんが、そうゆうものなのです:D 後ほど自動的にCoffeeScriptをコンパイルする方法をお教えしますので、まずこの言語の文法から見てみましょう。

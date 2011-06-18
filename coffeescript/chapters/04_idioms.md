@@ -2,12 +2,12 @@
 
 #Common CoffeeScript idioms
 
-Every language has a set of idioms and practices, and CoffeeScript is no exception. This chapter will explore those conventions, and show you some JavaScript to CoffeeScript comparisons so you can get a practical sense of the language. 
+すべての言語にはイディオムやプラクティスのセットがあり、CoffeeScriptも例外ではありません。この節では、これらのルールをについて学び、言語の実用的な感覚を得ることができるように、比較のためにいくつかのJavaScriptが同時に表示したいと思います。
 
 
 ##Each
 
-In JavaScript to iterate over every item in an array, we could either use the newly added [`forEach()`](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/foreach) function, or an old C style `for` loop. If you're planning to use some of JavaScript's latest features introduced in ECMAScript 5, I advise you also include a [shim](https://github.com/kriskowal/es5-shim) in the page to emulate support in older browsers.
+JavaScriptでは、新しく追加された [`forEach()`](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/foreach) か、一般的な反復処理を使う事が出来ます。ECMAScript 5で導入されたJavaScriptの最新の機能を使用したい場合、古いブラウザ向けには[shim](https://github.com/kriskowal/es5-shim)の導入をお勧めします。
     
     for (var i=0; i < array.length; i++)
       myFunction(array[i]);
@@ -16,17 +16,17 @@ In JavaScript to iterate over every item in an array, we could either use the ne
       myFunction(item)
     });
 
-Although the `forEach()` syntax is much more succinct and readable, it suffers from the drawback that the callback function will be invoked every iteration of the array, and is therefore much slower than the equivalent `for` loop. Let's see how it looks in CoffeeScript.
+`forEach()` 構文ははるかに簡潔で読みやすいですが、一方でコールバック関数が反復ごとに呼ばれているため、JavaScriptで書かれるループのよりも遅くなってしまいます。以下の例を見てみましょう。
 
 <span class="csscript"></span>
       
     myFunction(item) for item in array
     
-It's a readable and concise syntax, I'm sure you'll agree, and what's great is that it compiles to a `for` loop behind the scenes. In other words CoffeeScript's syntax offers the same expressiveness as `forEach()`, but without the speed and shimming caveats. 
+確かに読みやすく簡潔な構文で、コンパイル時に `for` に変換されていますね。言い換えれば、CoffeeScriptは `forEach()` とほぼ同じ表現力を提供してはいますが、その処理速度の低下には注意が必要です。
     
 ##Map
 
-As with `forEach()`, ES5 also includes a native map function that has a much more succinct syntax than the classic `for` loop, namely [`map()`](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/map). Unfortunately it suffers from much the same caveats that `forEach()` does, its speed is greatly reduced due to the function calls.
+`forEach()` と同様に、クラシックな `for` ループに加えて、ES5では [`map()`](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/map) という、ネイティブなマップ機能が導入されます。しかし `forEach()` と同様にパフォーマンスの点では注意が必要です。
 
     var result = []
     for (var i=0; i < array.length; i++)
@@ -36,7 +36,7 @@ As with `forEach()`, ES5 also includes a native map function that has a much mor
       return item.name;
     });
 
-As we covered in the syntax chapter, CoffeeScript's comprehensions can be used to get the same behavior as `map()`. Notice we're surrounding the comprehension with parens, which is **absolutely critical** in ensuring the comprehension returns what you'd expect, the mapped array. 
+文法の節で説明したように、CoffeeScriptの内包表記は `map()` と同様の機能を果たしています。配列を返すことを明示するために、内包表記は**必ず**括弧で囲わなくてはいけません。
 
 <span class="csscript"></span>
 
@@ -44,7 +44,7 @@ As we covered in the syntax chapter, CoffeeScript's comprehensions can be used t
 
 ##Select
 
-Again, ES5 has a utility function [`filter()`](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/filter) for reducing arrays:
+ES5には [`filter()`](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/filter) が導入され、配列をフィルタリングをすることができます。
     
     var result = []
     for (var i=0; i < array.length; i++)
@@ -55,14 +55,13 @@ Again, ES5 has a utility function [`filter()`](https://developer.mozilla.org/en/
       return item.name == "test"
     });
 
-CoffeeScript's basic syntax uses the `when` keyword to filter items with a comparison. Behind the scenes a `for` loop is generated. The whole execution is performed in an anonymous function to ward against scope leakage and variable conflict. 
+CoffeeScriptの文法では、 `when` キーワードを用いて要素を比較する事が出来ます。実際に実行する関数はスコープ漏れや変数のコンフリクトを避けるために匿名関数(Anonymous Function)が用いられます。
 
 <span class="csscript"></span>
 
     result = (item for item in array when item.name is "test")
 
-Don't forgot to include the parens, as otherwise `result` will be the last item in the array. 
-CoffeeScript's comprehensions are so flexible that they allow you to do powerful selections as in the following example:
+括弧を忘れてしまうと 結果は配列の最後の項目になるので忘れないように注意しましょう。CoffeeScriptの内包表現は非常に柔軟なので、以下のような場合も対応できます。
 
 <span class="csscript"></span>
 
@@ -75,7 +74,7 @@ CoffeeScript's comprehensions are so flexible that they allow you to do powerful
 
 ##Includes
 
-Checking to see if a value is inside an array is typically done with `indexOf()`, which rather mind-bogglingly still requires a shim, as Internet Explorer hasn't implemented it. 
+値が配列内にあるかどうかを確認する場合、通常(もちろんこの"通常"にはIEは含まれていません)は `indexOf()` を用いる事でチェックする事が出来ます。<!-- "I don't wanna even translate this as it doesn't make any sense to support IE" which rather mind-bogglingly still requires a shim, as Internet Explorer hasn't implemented it. -->
 
     var included = (array.indexOf("test") != -1)
 
@@ -85,13 +84,13 @@ CoffeeScript has a neat alternative to this which Pythonists may recognize, name
     
     included = "test" in array
 
-Behind the scenes, CoffeeScript is using `Array.prototype.indexOf()`, and shimming if necessary, to detect if the value is inside the array. Unfortunately this  means the same `in` syntax won't work for strings. We need to revert back to using `indexOf()` and testing if the result is negative:
+どのようにコンパイルされているかというと、CoffeeScriptは `Array.prototype.indexOf()` を使って配列をチェックしています。しかし、この場合文字列に対しては使う事が出来ません。そのため文字列の場合は `indexOf()` を用いましょう
 
 <span class="csscript"></span>
 
     included = "a long test string".indexOf("test") isnt -1
 
-Or even better, hijack the bitwise operator so we don't have to do a `-1` comparison. 
+より良い例は、`-1` の比較をビット演算子をつかって代替する方法です。
 
 <span class="csscript"></span>
     
