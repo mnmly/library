@@ -1,6 +1,6 @@
 <div class="back"><a href="index.html">&laquo; 目次に戻る</a></div>
 
-#Classes
+#クラス
 
 JavaScriptにおけるクラスは、多くの人が敬遠しがちなコンセプトですが、あなたがこのCoffeeScriptの本を読んでいる限り、それに対する偏見はそれほど強くないと言えるでしょう。クラスは他の言語と同様にJavaScriptでも非常に便利なものでCoffeeScriptはすばらしい構文でクラスを作る事が出来ます。
 

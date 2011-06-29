@@ -1,6 +1,6 @@
 <div class="back"><a href="index.html">&laquo; 目次に戻る</a></div>
 
-#Common CoffeeScript idioms
+#イディオム
 
 すべての言語にはイディオムやプラクティスのセットがあり、CoffeeScriptも例外ではありません。この節では、これらのルールをについて学び、言語の実用的な感覚を得ることができるように、比較のためにいくつかのJavaScriptが同時に表示したいと思います。
 

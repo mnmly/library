@@ -1,6 +1,6 @@
 <div class="back"><a href="index.html">&laquo; 目次に戻る</a></div>
 
-#Creating Application
+#アプリケーションを作ってみる
 
 さてここまでCoffeeScriptの構文をみてきたので、実際にCoffeeScriptのアプリケーションを作ってみましょう。この節では初心者でも熟練者でも分かりやすいように解説していきます。純粋なJavaScriptのデベロッパーの方にも学んでいただけるでしょう。
 
