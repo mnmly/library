@@ -36,7 +36,7 @@ JavaScriptでは、新しく追加された [`forEach()`](https://developer.mozi
       return item.name;
     });
 
-文法の節で説明したように、CoffeeScriptの内包表記は `map()` と同様の機能を果たしています。配列を返すことを明示するために、内包表記は**必ず**括弧で囲わなくてはいけません。
+構文の節で説明したように、CoffeeScriptの内包表記は `map()` と同様の機能を果たしています。配列を返すことを明示するために、内包表記は**必ず**括弧で囲わなくてはいけません。
 
 <span class="csscript"></span>
 
@@ -55,7 +55,7 @@ ES5には [`filter()`](https://developer.mozilla.org/en/JavaScript/Reference/Glo
       return item.name == "test"
     });
 
-CoffeeScriptの文法では、 `when` キーワードを用いて要素を比較する事が出来ます。実際に実行する関数はスコープ漏れや変数のコンフリクトを避けるために匿名関数(Anonymous Function)が用いられます。
+CoffeeScriptの構文では、 `when` キーワードを用いて要素を比較する事が出来ます。実際に実行する関数はスコープ漏れや変数のコンフリクトを避けるために匿名関数(Anonymous Function)が用いられます。
 
 <span class="csscript"></span>
 
@@ -118,7 +118,7 @@ This preference over more English style code also applies to using `is` over `==
     string == string # true
     string is string # true
     
-CoffeeScriptでサポートされているとても便利な文法として、 `or equals` があり、Rubyの `||=` に相当します。
+CoffeeScriptでサポートされているとても便利な構文として、 `or equals` があり、Rubyの `||=` に相当します。
     
 <span class="csscript"></span>
 

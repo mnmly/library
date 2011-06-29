@@ -6,14 +6,13 @@
 
 デベロッパーのみなさんがクライアントサイドのアプリケーションを作るときになると、デザインパターンなどは忘れ去られてしまい結果的には管理しづらいスパゲッティコードになってしまっています。アプリケーションのアーキテクチャは非常に重要なポイントで、シンプルなフォームバリデーション以上のものをCoffeeScript/JavaScriptで作ろうと思えば、[MVC](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)のような何らかのアプリケーションのアーキテクチャパターンを用いることをお勧めします。
 
-大規模の管理可能なアプリケーションを作る秘訣は、モジュールからなるカップルされていないコンポーネントを連なりをつくることにあります。アプリケーションのロジックを出来る限り包括的なものにとどめ、適切に抽象化することが重要です。おすすめの本として挙げられるのは、[JavaScript Web Applications](http://oreilly.com/catalog/9781449307530/)があり、おすすめのフレームワークとして[Backbone](http://documentcloud.github.com/backbone/) or [Spine](https://github.com/maccman/spine)も挙げられます。今回の節ではCommonJSモジュールを使ってアプリケーションを作っていきたいと思います。
-
+大規模の管理可能なアプリケーションを作る秘訣は、モジュールからなるカップルされていないコンポーネントの連なりをつくることにあります。アプリケーションのロジックを出来る限り包括的なものにとどめ、適切に抽象化することが重要です。おすすめの本として挙げられるのは、[JavaScript Web Applications](http://oreilly.com/catalog/9781449307530/)があり、おすすめのフレームワークとして[Backbone](http://documentcloud.github.com/backbone/) や [Spine](https://github.com/maccman/spine)も挙げられます。今回の節ではCommonJSモジュールを使ってアプリケーションを作っていきたいと思います。
 
 ##Structure & CommonJS
 
 ではそのCommonJSモジュールとは何なんでしょうか？ CommonJSは使ったことないけど、[NodeJS](http://nodejs.org/)は使ったことがあるという方であれば、実はもうCommonJSを使っているのです。CommonJSモジュールは最初はサーバサイドのJavaScriptライブラリを書くのに開発されたもので、ローディングや名前空間、スコープの問題を解決するために作られました。またどのJavaScriptアプリケーションでも準拠できるようにできています。[Rhino](http://www.mozilla.org/rhino/)向けに書かれたライブラリをNodeでも動くようにすることが目的でした。最終的にはこのアイデアはクライアント側に戻ってきて、今では[RequireJS](http://requirejs.org) や [Yabble](https://github.com/jbrantly/yabble) などのクライアントサイドでモジュールが使えるようになるライブラリも開発されてきました。
 
-現実的には、モジュールはあなたの書いたコードがローカルの名前空間(コードのカプセル化)で動き、また `require()` によって読み込まれた他のモジュールも使うことができ、かつモジュールのプロパティを `module.exports` でエクスポートすることもできます。ではもう少し踏み込んでみてみましょう。
+モジュールはあなたの書いたコードがローカルの名前空間で動き、また `require()` によって読み込まれた他のモジュールも使うことができ、かつ、モジュールのプロパティを `module.exports` でエクスポートすることもできます。ではもう少し踏み込んでみてみましょう。
 
 ###Requiring files
 
