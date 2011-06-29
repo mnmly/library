@@ -1,4 +1,4 @@
-<div class="back"><a href="index.html">&laquo; Back to all chapters</a></div>
+<div class="back"><a href="index.html">&laquo; 目次に戻る</a></div>
 
 #CoffeeScript Syntax
 

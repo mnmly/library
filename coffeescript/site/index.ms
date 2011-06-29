@@ -2,16 +2,16 @@
 <html>
 <head>
 <meta charset=utf-8>
-<meta name="description" content="The Little Book on CoffeeScript">
+<meta name="description" content="ちっちゃいCoffeeScriptの本">
 <meta name="keywords" content="coffeescript,javascript,book,tutorials">
-<title>The Little Book on CoffeeScript</title>
+<title>ちっちゃいCoffeeScriptの本</title>
 <link rel="stylesheet" href="site/site.css" type="text/css" charset="utf-8">
 <script src="site/jquery.js" type="text/javascript" charset="utf-8"></script>      
 </head>
 <body>
 <div id="container">
   <header>
-    <h1><a href="index.html">The Little Book on CoffeeScript</a></h1>
+    <h1><a href="index.html">ちっちゃいCoffeeScriptの本</a></h1>
   </header>
   
   <div id="content">

@@ -2,6 +2,8 @@ require "rdiscount"
 require "mustache"
 require "active_support/core_ext/string"
 require "fileutils"
+require "yaml"
+load File.dirname(__FILE__) + "/site/index-ja.rb"
 
 def generate(page, template = "site/page.ms")
   Mustache.render(
@@ -15,7 +17,7 @@ task :generate do
     array << ({
       :src    => src,
       :static => File.basename(src, ".md") + ".html",
-      :name   => File.basename(src, ".md").gsub(/\d+_/, "").titleize,
+      :name   => if defined? $chapters then $chapters[File.basename(src, ".md")] else File.basename(src, ".md").gsub(/\d+_/, "").titleize end,
       :href   => File.basename(src, ".md") + ".html"
     })
     array

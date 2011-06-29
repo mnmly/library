@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset=utf-8>
-<title>The Little Book on CoffeeScript - {{name}}</title>
+<title>ちっちゃいCoffeeScriptの本 - {{name}}</title>
 <link rel="stylesheet" href="site/site.css" type="text/css" charset="utf-8">
 <link rel="stylesheet" href="site/ja.css" type="text/css" charset="utf-8">
 <link rel="stylesheet" href="site/highlight.css" type="text/css" charset="utf-8">
@@ -17,7 +17,7 @@
 <body>
 <div id="container">
   <header>
-    <h1><a href="index.html">The Little Book on CoffeeScript</a></h1>
+    <h1><a href="index.html">ちっちゃいCoffeeScriptの本</a></h1>
   </header>
   
   <div id="content">
