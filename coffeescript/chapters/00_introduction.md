@@ -4,7 +4,7 @@
 
 [CoffeeScript](http://coffeescript.org)とはJavaSciptに書き換えてくれる便利な言語のことです。 構文はRubyやPythonに影響を受けていて、この二つの言語の様々な特徴を備えています。 この本は、読者の方に、CoffeeScript、そのベストプラクティスを学んで頂き、素晴らしいクライアントアプリケーションを作り始めてもらいたいという意図で書かれています。この本は小さく5チャプターしかないですが、それはCoffeeScriptそのものが小さいからなのです。
 
-この本は完全にオープンソース形式となっており、 [Alex MacCaw](http://alexmaccaw.co.uk) ([@maccman](http://twitter.com/maccman))によって書かれ、[David Griffiths](https://github.com/dxgriffiths), [Satoshi Murakami](http://github.com/satyr) や [Jeremy Ashkenas](https://github.com/jashkenas)の協力を得て書かれています。そして勝手ながら[ぼく](http://twitter.com/mnmly)が翻訳をさせてもらいました。
+この本は完全にオープンソース形式となっており、 [Alex MacCaw](http://alexmaccaw.co.uk) ([@maccman](http://twitter.com/maccman))によって書かれ、[David Griffiths](https://github.com/dxgriffiths), [Satoshi Murakami](http://github.com/satyr) や [Jeremy Ashkenas](https://github.com/jashkenas)の協力を得て書かれています。そして勝手ながら[Hiroaki Yamane](http://twitter.com/mnmly)が翻訳をさせてもらいました。
 
 もし誤字脱字、提案などがある場合はこの本の[GitHub ページ](https://github.com/arcturo/library)でお願いします。 ご興味のある方は [JavaScript Web Applications by O'Reilly](http://oreilly.com/catalog/9781449307530/)というリッチなクライアントサイドのJavaScriptアプリケーションに関する本も参照ください。
 
