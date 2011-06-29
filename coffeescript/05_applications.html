@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset=utf-8>
+<title>The Little Book on CoffeeScript - Applications</title>
+<link rel="stylesheet" href="site/site.css" type="text/css" charset="utf-8">
+<link rel="stylesheet" href="site/ja.css" type="text/css" charset="utf-8">
+<link rel="stylesheet" href="site/highlight.css" type="text/css" charset="utf-8">
+<script src="site/jquery.js" type="text/javascript" charset="utf-8"></script>      
+<script src="site/highlight.js" type="text/javascript" charset="utf-8"></script>
+<script src="site/coffee-script.js" type="text/javascript" charset="utf-8"></script>
+<script src="site/preview.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+  hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="container">
+  <header>
+    <h1><a href="index.html">The Little Book on CoffeeScript</a></h1>
+  </header>
+  
+  <div id="content">
+    <div class="back"><a href="index.html">&laquo; Back to all chapters</a></div>
+
+
+<h1>Creating Application</h1>
+
+<p>さてここまでCoffeeScriptの構文をみてきたので、実際にCoffeeScriptのアプリケーションを作ってみましょう。この節では初心者でも熟練者でも分かりやすいように解説していきます。純粋なJavaScriptのデベロッパーの方にも学んでいただけるでしょう。</p>
+
+<p>デベロッパーのみなさんがクライアントサイドのアプリケーションを作るときになると、デザインパターンなどは忘れ去られてしまい結果的には管理しづらいスパゲッティコードになってしまっています。アプリケーションのアーキテクチャは非常に重要なポイントで、シンプルなフォームバリデーション以上のものをCoffeeScript/JavaScriptで作ろうと思えば、<a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">MVC</a>のような何らかのアプリケーションのアーキテクチャパターンを用いることをお勧めします。</p>
+
+<p>大規模の管理可能なアプリケーションを作る秘訣は、モジュールからなるカップルされていないコンポーネントの連なりをつくることにあります。アプリケーションのロジックを出来る限り包括的なものにとどめ、適切に抽象化することが重要です。おすすめの本として挙げられるのは、<a href="http://oreilly.com/catalog/9781449307530/">JavaScript Web Applications</a>があり、おすすめのフレームワークとして<a href="http://documentcloud.github.com/backbone/">Backbone</a> や <a href="https://github.com/maccman/spine">Spine</a>も挙げられます。今回の節ではCommonJSモジュールを使ってアプリケーションを作っていきたいと思います。</p>
+
+<h2>Structure &amp; CommonJS</h2>
+
+<p>ではそのCommonJSモジュールとは何なんでしょうか？ CommonJSは使ったことないけど、<a href="http://nodejs.org/">NodeJS</a>は使ったことがあるという方であれば、実はもうCommonJSを使っているのです。CommonJSモジュールは最初はサーバサイドのJavaScriptライブラリを書くのに開発されたもので、ローディングや名前空間、スコープの問題を解決するために作られました。またどのJavaScriptアプリケーションでも準拠できるようにできています。<a href="http://www.mozilla.org/rhino/">Rhino</a>向けに書かれたライブラリをNodeでも動くようにすることが目的でした。最終的にはこのアイデアはクライアント側に戻ってきて、今では<a href="http://requirejs.org">RequireJS</a> や <a href="https://github.com/jbrantly/yabble">Yabble</a> などのクライアントサイドでモジュールが使えるようになるライブラリも開発されてきました。</p>
+
+<p>モジュールはあなたの書いたコードがローカルの名前空間で動き、また <code>require()</code> によって読み込まれた他のモジュールも使うことができ、かつ、モジュールのプロパティを <code>module.exports</code> でエクスポートすることもできます。ではもう少し踏み込んでみてみましょう。</p>
+
+<h3>Requiring files</h3>
+
+<p><code>require()</code> で他のライブラリ・モジュールを読み込むことが出来ます。モジュール名を引数に渡し、読み込みが成功するとそのモジュールをオブジェクトとして返します。</p>
+
+<pre><code>var User = require("models/user");
+</code></pre>
+
+<p>同期のrequireのサポートはまだ議論中ですが、主要なローダーライブラリや直近のCommonJSの<a href="http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition">提案</a>ではおおよそ解決されています。もしここで使われているStitchとは違った他のオプションを使いたい場合は、ご自身で調べてみるのもいいでしょう。</p>
+
+<h3>Exporting properties</h3>
+
+<p>デフォルトでは、 <code>require()</code> ではモジュールのプロパティを見ることができません。もし特定のプロパティをアクセス可能にするには <code>module.export</code> に設定する必要があります。</p>
+
+<pre><code>// random_module.js
+module.exports.myFineProperty = function(){
+  // Some shizzle
+}
+</code></pre>
+
+<p>モジュールが読み込まれたときには <code>myFineProperty</code>　がアクセス可能になっているはずです。</p>
+
+<pre><code>var myFineProperty = require("random_module").myFineProperty;
+</code></pre>
+
+<h2>Stitch it up</h2>
+
+<p>ソースコードをCommonJSモジュールとして扱うのは非常に分かりやすく簡単なのですが、ではこれをどうしてクライアントサイドで使えばいいのでしょうか？私個人の選択としてはそんなに知られていない<a href="https://github.com/sstephenson/stitch">Stitch</a>を使いたいと思います。このライブラリは<a href="http://www.prototypejs.org">Prototype.js</a>の作者であるSam Stephensonによって開発され、モジュールに関わる問題をエレガントに解決してくれています。ダイナミックにdependencyを解決するより、Stitchは単純に全てのJavaScriptを一つにまとめてくれ、それらをCommonJSの魔法をかけてくれるのです。いい忘れていたかもしれませんが、StitchはCoffeeScriptだけでなく、JSテンプレート、<a href="http://lesscss.org">LESS CSS</a> や <a href="http://sass-lang.com">Sass</a>もコンパイルしてくれるのです！</p>
+
+<p>手始めとして、まずStitchをインストールしましょう。もちろん<a href="http://nodejs.org/">Node.js</a> と <a href="http://npmjs.org/">npm</a>はインストールしておいてください。</p>
+
+<pre><code>npm install stitch
+</code></pre>
+
+<p>さてアプリケーションのストラクチャを作ってみましょう。もし<a href="https://github.com/maccman/spine">Spine</a>を使っている場合は、<a href="http://github.com/maccman/spine.app">Spine.App</a>で自働化できますが、そうでない場合は手動でしましょう。私の場合は通常 <code>app</code> フォルダにアプリケーション関連のコードを置き、<code>lib</code> フォルダに一般的なライブラリ群を、静的なファイルなどその他のファイルは <code>public</code> に置いています。</p>
+
+<pre><code>app/controllers
+app/views
+app/models
+app/lib
+lib
+public
+public/index.html
+public/css
+public/css/views
+</code></pre>
+
+<p>そしてStitchサーバを立ち上げます。<code>server.js</code> を以下のコードで保存してみましょう。</p>
+
+<pre><code>#!/usr/bin/env node
+var stitch  = require('stitch'),
+    express = require('express'),
+    util    = require('util'),
+    argv    = process.argv.slice(2);
+
+var package = stitch.createPackage({
+  // Specify the paths you want Stitch to automatically bundle up
+  paths: [__dirname + '/lib', __dirname + '/app'],
+
+  // Specify your base libraries
+  dependencies: [
+    __dirname + '/lib/json2.js',
+    __dirname + '/lib/shim.js',
+    __dirname + '/lib/jquery.js',
+    __dirname + '/lib/jquery.tmpl.js',
+    __dirname + '/lib/spine.tmpl.js',
+    __dirname + '/lib/spine.js'
+  ]
+});
+
+var app = express.createServer();
+
+app.configure(function() {
+  app.set('views', __dirname + '/views');
+  // Compile Less CSS files
+  app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
+  app.use(app.router);
+  // Set the static route, in this case `public`
+  app.use(express.static(__dirname + '/public'));
+  // And invoke Stitch when application.js is requsted
+  app.get('/application.js', package.createServer());
+});
+
+var port = argv[0] || process.env.PORT || 9294;
+util.puts("Starting server on port: " + port);
+app.listen(port);
+</code></pre>
+
+<p>さて、あと少しです！ここで <code>server.js</code> をNodeで走らせると、Stitchサーバが立ち上がるでしょう。では <code>app</code> フォルダに <code>app.coffee</code> を作りましょう。このファイルが私たちのアプリケーションをブーストラップしてくれるファイルになります。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>module.exports = App =
+  init: -&gt;
+    # Bootstrap this mofo
+</code></pre>
+
+<p>では次はメインページになる <code>index.html</code> です。もしシングルページアプリケーションにする場合は、このページ唯一ユーザに見られるページとなります。これは静的なページなので <code>public</code> フォルダに置いておきましょう。</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=utf-8&gt;
+  &lt;title&gt;Application&lt;/title&gt;
+  &lt;link rel="stylesheet" href="/css/application.css" type="text/css" charset="utf-8"&gt;
+  &lt;!-- Require the main Stitch file --&gt;
+  &lt;script src="/application.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" charset="utf-8"&gt;
+    jQuery(function(){
+      var App = require("app");
+      window.App = App.init({el: $("body")});      
+    });
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>ページが読み込まれると、インラインのjQueryコールバックが <code>app.coffee</code> を読み込み(ファイルは自動的にコンパイルされます)、そして <code>init()</code> が呼ばれます。たったこれだけでCommonJSモジュールを走らせ、HTTPサーバも立ち上げ、さらにはCoffeeScriptもコンパイルしてくれるのです。もし他のモジュールを読み込みたい場合は、単に <code>require()</code> を呼ぶだけです。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code># models/user.coffee
+module.exports = class User
+  constructor: (@name) -&gt;
+
+# app.coffee
+User = require("models/user")
+</code></pre>
+
+<h2>JavaScript templates</h2>
+
+<p>クライアントサイドにロジックを移すときは、ある種のテンプレートライブラリが必要になってきます。JavaScriptテンプレートはサーバサイドのテンプレートと非常に似たもので、それがサーバ側で生成されていないことを除けば、RubyのERBやPythonのTextInterpolationと同じです。デフォルトとして、Stitchは<a href="https://github.com/sstephenson/eco">eco</a>というテンプレートライブラリを使うことが出来ます。もし、他のテンプレートライブラリを使いたい場合でも、Stitchにカスタムコンパイラを追加し、特定のエクステンションをコンパイルすることもできるので安心してください。</p>
+
+<p>例として、<a href="http://api.jquery.com/jquery.tmpl/">jQuery.tmpl</a>ライブラリのサポートを追加してみましょう。</p>
+
+<pre><code>stitch.compilers.tmpl = function(module, filename) {
+  var content = fs.readFileSync(filename, 'utf8');
+  content = ["var template = jQuery.template(", JSON.stringify(content), ");", 
+             "module.exports = (function(data){ return jQuery.tmpl(template, data); });\n"].join("");
+  return module._compile(content, filename);
+};
+</code></pre>
+
+<p>お気づきのように、上のコードでは <code>module.exports</code> に呼ばれるとテンプレートをレンダリングする関数が当ててあります。では、<code>views/users/show.tmpl</code> にテンプレートを作ってみましょう。</p>
+
+<pre><code>&lt;label&gt;Name: ${name}&lt;/label&gt;
+</code></pre>
+
+<p><code>tmpl</code> コンパイラハンドラーを定義したので、Stitchは自動的にテンプレートをコンパイルしそれを <code>application.js</code> に追加します。</p>
+
+<pre><code>require("views/users/show")(new User("name"))
+</code></pre>
+
+<h2>Bonus - 30 second deployment with Heroku</h2>
+
+<p><a href="http://heroku.com/">Heroku</a>は素晴らしいホスティングでサーバとスケーリングを全て管理してくれ、すばらしいJavaScriptアプリケーションをホストしてくれるなど、エキサイティングなサービスをしてくれます。このチュートリアルを動かすにはHerokuでアカウントを作る必要がありますが、ベーシックプランは完全に無料なので試してみてください。一般的にはRubyのホスティングとして使われていますが、HorokuはCederスタックをリリースしてNodeも動かすことが出来るようになりました。</p>
+
+<p>最初に <code>Procfile</code> を作りましょう。このファイルはHerokuにこのアプリケーションについての情報を伝えてくれるファイルとなります。</p>
+
+<pre><code>echo "web: node server.js" &gt; Procfile
+</code></pre>
+
+<p>アプリケーションのディレクトリにローカルのgitレポジトリを作りましょう。</p>
+
+<pre><code>git init
+git add .
+git commit -m "First commit"    
+</code></pre>
+
+<p>そして、このアプリケーションをデプロイするには、 <code>heroku</code> gem を使います。(もしインストールされていないなら、<code>gem install heroku</code> でインストールしましょう。)</p>
+
+<pre><code>heroku create myAppName --stack cedar
+git push heroku master
+heroku ps:scale web=1
+heroku open
+</code></pre>
+
+<p>これでおしまいです。ほんっとに、これだけです<code>:D</code> Nodeアプリケーションのホスティングはこれまでになく簡単になりましたね。</p>
+
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+html[lang=ja]{
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, "Hiragino Mincho W3", "Kozuka Mincho Pro", FreeSerif, serif;
+}
+
+html[lang=ja] p{
+  font-size: 0.9em;
+  letter-spacing: 0.06em;
+  line-height: 1.9em;
+}

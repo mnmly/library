@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset=utf-8>
+<title>The Little Book on CoffeeScript - Idioms</title>
+<link rel="stylesheet" href="site/site.css" type="text/css" charset="utf-8">
+<link rel="stylesheet" href="site/ja.css" type="text/css" charset="utf-8">
+<link rel="stylesheet" href="site/highlight.css" type="text/css" charset="utf-8">
+<script src="site/jquery.js" type="text/javascript" charset="utf-8"></script>      
+<script src="site/highlight.js" type="text/javascript" charset="utf-8"></script>
+<script src="site/coffee-script.js" type="text/javascript" charset="utf-8"></script>
+<script src="site/preview.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+  hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="container">
+  <header>
+    <h1><a href="index.html">The Little Book on CoffeeScript</a></h1>
+  </header>
+  
+  <div id="content">
+    <div class="back"><a href="index.html">&laquo; Back to all chapters</a></div>
+
+
+<h1>Common CoffeeScript idioms</h1>
+
+<p>すべての言語にはイディオムやプラクティスのセットがあり、CoffeeScriptも例外ではありません。この節では、これらのルールをについて学び、言語の実用的な感覚を得ることができるように、比較のためにいくつかのJavaScriptが同時に表示したいと思います。</p>
+
+<h2>Each</h2>
+
+<p>JavaScriptでは、新しく追加された <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/foreach"><code>forEach()</code></a> か、一般的な反復処理を使う事が出来ます。ECMAScript 5で導入されたJavaScriptの最新の機能を使用したい場合、古いブラウザ向けには<a href="https://github.com/kriskowal/es5-shim">shim</a>の導入をお勧めします。</p>
+
+<pre><code>for (var i=0; i &lt; array.length; i++)
+  myFunction(array[i]);
+
+array.forEach(function(item, i){
+  myFunction(item)
+});
+</code></pre>
+
+<p><code>forEach()</code> 構文ははるかに簡潔で読みやすいですが、一方でコールバック関数が反復ごとに呼ばれているため、JavaScriptで書かれるループのよりも遅くなってしまいます。以下の例を見てみましょう。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>myFunction(item) for item in array
+</code></pre>
+
+<p>確かに読みやすく簡潔な構文で、コンパイル時に <code>for</code> に変換されていますね。言い換えれば、CoffeeScriptは <code>forEach()</code> とほぼ同じ表現力を提供してはいますが、その処理速度の低下には注意が必要です。</p>
+
+<h2>Map</h2>
+
+<p><code>forEach()</code> と同様に、クラシックな <code>for</code> ループに加えて、ES5では <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/map"><code>map()</code></a> という、ネイティブなマップ機能が導入されます。しかし <code>forEach()</code> と同様にパフォーマンスの点では注意が必要です。</p>
+
+<pre><code>var result = []
+for (var i=0; i &lt; array.length; i++)
+  result.push(array[i].name)
+
+var result = array.map(function(item, i){
+  return item.name;
+});
+</code></pre>
+
+<p>構文の節で説明したように、CoffeeScriptの内包表記は <code>map()</code> と同様の機能を果たしています。配列を返すことを明示するために、内包表記は<strong>必ず</strong>括弧で囲わなくてはいけません。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>result = (item.name for item in array)
+</code></pre>
+
+<h2>Select</h2>
+
+<p>ES5には <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/filter"><code>filter()</code></a> が導入され、配列をフィルタリングをすることができます。</p>
+
+<pre><code>var result = []
+for (var i=0; i &lt; array.length; i++)
+  if (array[i].name == "test")
+    result.push(array[i])
+
+result = array.filter(function(item, i){
+  return item.name == "test"
+});
+</code></pre>
+
+<p>CoffeeScriptの構文では、 <code>when</code> キーワードを用いて要素を比較する事が出来ます。実際に実行する関数はスコープ漏れや変数のコンフリクトを避けるために匿名関数(Anonymous Function)が用いられます。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>result = (item for item in array when item.name is "test")
+</code></pre>
+
+<p>括弧を忘れてしまうと 結果は配列の最後の項目になるので忘れないように注意しましょう。CoffeeScriptの内包表現は非常に柔軟なので、以下のような場合も対応できます。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>passed = []
+failed = []
+(if score &gt; 60 then passed else failed).push score for score in [49, 58, 76, 82, 88, 90]
+
+# Or
+passed = (score for score in scores when score &gt; 60)
+</code></pre>
+
+<h2>Includes</h2>
+
+<p>値が配列内にあるかどうかを確認する場合、通常(もちろんこの"通常"にはIEは含まれていません)は <code>indexOf()</code> を用いる事でチェックする事が出来ます。<!-- "I don't wanna even translate this as it doesn't make any sense to support IE" which rather mind-bogglingly still requires a shim, as Internet Explorer hasn't implemented it. --></p>
+
+<pre><code>var included = (array.indexOf("test") != -1)
+</code></pre>
+
+<p>CoffeeScript has a neat alternative to this which Pythonists may recognize, namely <code>in</code>.</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>included = "test" in array
+</code></pre>
+
+<p>どのようにコンパイルされているかというと、CoffeeScriptは <code>Array.prototype.indexOf()</code> を使って配列をチェックしています。しかし、この場合文字列に対しては使う事が出来ません。そのため文字列の場合は <code>indexOf()</code> を用いましょう</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>included = "a long test string".indexOf("test") isnt -1
+</code></pre>
+
+<p>より良い例は、<code>-1</code> の比較をビット演算子をつかって代替する方法です。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>string   = "a long test string"
+included = !!~ string.indexOf "test"
+</code></pre>
+
+<h2>Min/Max</h2>
+
+<p>このテクニックは、CoffeeScriptに固有のものではありませんが、通常 <code>Math.max</code> と <code>Math.min</code> は複数の引数を取るのですが、<code>...</code> を最後に付けることで、配列を引数として処理する事ができます。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>Math.max [14, 35, -7, 46, 98]... # 98
+Math.min [14, 35, -7, 46, 98]... # -7
+</code></pre>
+
+<h2>And/or</h2>
+
+<p>CoffeeScript style guides indicates that <code>or</code> is preferred over <code>||</code>, and <code>and</code> is preferred over <code>&amp;&amp;</code>. I can see why, as the former is somewhat more readable. Nevertheless, the two styles have identical results.</p>
+
+<p>This preference over more English style code also applies to using <code>is</code> over <code>==</code> and <code>isnt</code> over <code>!=</code>.</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>string = "migrating coconuts"
+string == string # true
+string is string # true
+</code></pre>
+
+<p>CoffeeScriptでサポートされているとても便利な構文として、 <code>or equals</code> があり、Rubyの <code>||=</code> に相当します。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>hash or= {}
+</code></pre>
+
+<p>ハッシュが <code>false</code> だと評価された場合、それは空のオブジェクトだということになります。<code>[]</code> や <code>""</code> さらには <code>0</code> も<code>false</code>として評価されることに気をつけなくてはいけません。もしそれを意図してない場合は、<code>hash</code> が <code>undefined</code> または <code>null</code> 場合にのみアクティブになるCoffeeScriptの存在確認演算子を使いましょう。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>hash ?= {}
+</code></pre>
+
+<h2>Destructuring assignments</h2>
+
+<p>深くネストされたオブジェクトや配列のプロパティも以下のようにして簡単にアクセスすることが出来ます。</p>
+
+<pre><code>someObject = { a: 'value for a', b: 'value for b' }
+{ a, b } = someObject
+console.log "a is '#{a}', b is '#{b}'"
+</code></pre>
+
+<h2>External Libraries</h2>
+
+<p>最終的には結局JavaScriptにコンパイルされるので、外部ライブラリを使用する場合もCoffeeScriptのライブラリを呼び出すのと全く同じです。 <a href="http://jquery.com">jQuery</a>をCoffeeScriptで使うときは、jQueryのAPIのコールバックのパターンをよりエレガントに書く事が出来ます。</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code># Use local alias
+$ = jQuery
+
+$ -&gt;
+  # DOMContentLoaded
+  $(".el").click -&gt;
+    alert("Clicked!")
+</code></pre>
+
+<p>CoffeeScriptからコンパイルされたのコードはすべて、無名関数内にラップされているので、<code>jQuery</code>のためのエイリアスである<code>$</code>をローカルにセットして使うことが出来ます。</p>
+
+  </div>
+</div>
+</body>
+</html>
