@@ -1,6 +1,6 @@
 <div class="back"><a href="index.html">&laquo; 目次に戻る</a></div>
 
-#CoffeeScript Syntax
+#構文
 
 この節に踏み込む前にもう一度繰り返しておくと、CoffeeScriptの構文は時々JavaScriptに似たものもありますが、それは決して上位にある言語ではなく、それゆえJavaScriptのキーワードの `function` や `var` はCoffeeScriptでは使ってはいけません。使った場合は構文エラー(SyntaxError)が返されます。CoffeeScriptを書いているときは、そのファイルは純粋にCoffeeScriptでなくてはならず、二つの言語をごちゃ混ぜにしてはいけません。
 
@@ -37,7 +37,6 @@ CoffeeScriptはJavaScriptの主要な弱点であるグローバル変数の問�
 
 ご覧の通り、全ての変数はローカルにとどまっており、うっかりグローバルの変数を作る事は不可能です。CoffeeScriptは実際にはもう少し踏み込み、さらに上位の変数の上書きも出来ないようにしています。これによってJavaScriptデベロッパーが頻繁に直面する問題を回避することが出来るのですx
 
-However, sometimes it's useful to create global variables. You can either do this by directly setting them as properties on the global object (`window` in browsers), or with the following pattern:
 しかし、時にはグローバルな変数を作った方が便利なときもありますよね。その時は直接、グローバルオブジェクト(ブラウザの`window`)のプロパティとして、もしくは以下のようなパターンでそうする事が出来ます。
 
 <span class="csscript"></span>
