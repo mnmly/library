@@ -26,7 +26,7 @@
 
 <h1>CoffeeScriptって何?</h1>
 
-<p><a href="http://coffeescript.org">CoffeeScript</a>とはJavaSciptに書き換えてくれる便利な言語のことです。 文法はRubyやPythonに影響を受けていて、この二つの言語の様々な特徴を備えています。 この本は、読者の方に、CoffeeScript、そのベストプラクティスを学んで頂き、素晴らしいクライアントアプリケーションを作り始めてもらいたいという意図で書かれています。この本は小さく5チャプターしかないですが、それはCoffeeScriptそのものが小さいからなのです。</p>
+<p><a href="http://coffeescript.org">CoffeeScript</a>とはJavaSciptに書き換えてくれる便利な言語のことです。 構文はRubyやPythonに影響を受けていて、この二つの言語の様々な特徴を備えています。 この本は、読者の方に、CoffeeScript、そのベストプラクティスを学んで頂き、素晴らしいクライアントアプリケーションを作り始めてもらいたいという意図で書かれています。この本は小さく5チャプターしかないですが、それはCoffeeScriptそのものが小さいからなのです。</p>
 
 <p>この本は完全にオープンソース形式となっており、 <a href="http://alexmaccaw.co.uk">Alex MacCaw</a> (<a href="http://twitter.com/maccman">@maccman</a>)によって書かれ、<a href="https://github.com/dxgriffiths">David Griffiths</a>, <a href="http://github.com/satyr">Satoshi Murakami</a> や <a href="https://github.com/jashkenas">Jeremy Ashkenas</a>の協力を得て書かれています。</p>
 
@@ -36,7 +36,7 @@
 
 <p>さらに重要なのは、JavaScriptにはよく経験不足なデベロッパーつまずいてしまう多くの<a href="http://bonsaiden.github.com/JavaScript-Garden/">隠したい事実</a>が存在します。CoffeeScriptはきちんとこれらを回避し、JavaScriptを良い部分だけ厳選し、おかしな部分を直してくれるのです。</p>
 
-<p>CoffeeScriptはJavaScriptの上に位置するものではありません。CoffeeScriptからJavaScriptで書かれた外部のライブラリを使う事が出来る一方で、変換せずにそのままJavaScriptをCoffeeScriptに変換しようとすると文法エラー(Syntax Error)を受けてしまいます。</p>
+<p>CoffeeScriptはJavaScriptの上に位置するものではありません。CoffeeScriptからJavaScriptで書かれた外部のライブラリを使う事が出来る一方で、変換せずにそのままJavaScriptをCoffeeScriptに変換しようとすると構文エラー(Syntax Error)を受けてしまいます。</p>
 
 <p>コンパイラはCoffeeScriptのコードを対応するJavaScriptに変換してくれるだけで、ランタイムでのインタプリテーションはありません。 勘違いしやすい落とし穴を解決していきましょう。 第一に、CoffeeScriptを書くにはJavaScriptを知っている必要があります。なぜなら、実行時にはどうしてもJavaScriptの知識が必要だからです。しかし、そうはいってもランタイムエラーは大抵見つけやすく、自身、「JavaScriptのエラーがCoffeeScriptのどこから来ているのか分からなくなった」などの問題は今までありません。 第二に、CoffeeScriptについての間違った見解としては速度の問題です。つまり、CoffeeScriptによってコンパイルされたコードは純粋なJavaScriptで書かれたものより遅いんじゃないかというものです。これもまた、実際に全く問題ではありません。CoffeeScriptは普通に書かれたJavaScriptよりむしろ速い傾向があります。</p>
 
@@ -70,9 +70,9 @@
 
 <p><code>--output</code> オプションが指定されていない場合、CoffeeScriptは同じ名前でJavaScriptを保存します。(上記の例の場合は,  <code>my-script.js</code> ) この操作は既存のファイルを上書きしてしまうので注意してください。</p>
 
-<p>見てお分かりの通り、CoffeeScriptのデフォルトの拡張子は <code>.coffee</code> となります。他の言語と同じように、<a href="http://macromates.com/">TextMate</a>などのエディタで正しい文法ハイライトを付けることができます。TextMateの場合、デフォルトではCoffeeScriptに対応していないので、<a href="https://github.com/jashkenas/coffee-script-tmbundle">こちら</a>からそのバンドルをインストールする事が出来ます。</p>
+<p>見てお分かりの通り、CoffeeScriptのデフォルトの拡張子は <code>.coffee</code> となります。他の言語と同じように、<a href="http://macromates.com/">TextMate</a>などのエディタで正しい構文ハイライトを付けることができます。TextMateの場合、デフォルトではCoffeeScriptに対応していないので、<a href="https://github.com/jashkenas/coffee-script-tmbundle">こちら</a>からそのバンドルをインストールする事が出来ます。</p>
 
-<p>このコンパイルステップが「不便…面倒や…」と感じられるかもしれませんが、そうゆうものなのです<code>:D</code> 後ほど自動的にCoffeeScriptをコンパイルする方法をお教えしますので、まずこの言語の文法から見てみましょう。</p>
+<p>このコンパイルステップが「不便…面倒や…」と感じられるかもしれませんが、そうゆうものなのです<code>:D</code> 後ほど自動的にCoffeeScriptをコンパイルする方法をお教えしますので、まずこの言語の構文から見てみましょう。</p>
 
   </div>
 </div>
