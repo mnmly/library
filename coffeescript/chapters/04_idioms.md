@@ -22,7 +22,7 @@ JavaScriptでは、新しく追加された [`forEach()`](https://developer.mozi
       
     myFunction(item) for item in array
     
-確かに読みやすく簡潔な構文で、コンパイル時に `for` に変換されていますね。言い換えれば、CoffeeScriptは `forEach()` とほぼ同じ表現力を提供してはいますが、その処理速度の低下には注意が必要です。
+確かに読みやすく簡潔な構文で、素晴らしいことに裏側で `for` ループにコンパイルしてくれます。言い換えれば、CoffeeScriptは `forEach()` とほぼ同じ表現力を提供し、かつ速度や古いブラウザへの互換を気にせずによいということです。
     
 ##Map
 
