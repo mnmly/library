@@ -215,7 +215,7 @@ CoffeeScriptはRubyの表現である、後付けの `if` 文にも対応して�
     if true is 1
       "Type coercian fixed!"
 
-上の例でお気づきかもしれませんが、CoffeeScriptでは `==` を `==` に `!=` を `!==` に変換しています。私のCoffeeScriptのもっともシンプルで好きな特徴の一つです。これをする意味は何でしょうか？簡単に言えば、JavaScriptのタイプ判定が少しが変で、判定時にタイプを変更してしまい、様々なバグや変な動作の原因となっているのです。
+上の例でお気づきかもしれませんが、CoffeeScriptでは `==` を `===` に `!=` を `!==` に変換しています。私のCoffeeScriptのもっともシンプルで好きな特徴の一つです。これをする意味は何でしょうか？簡単に言えば、JavaScriptのタイプ判定が少しが変で、判定時にタイプを変更してしまい、様々なバグや変な動作の原因となっているのです。
 
 以下の例は、[JavaScript Garden's equality section](http://bonsaiden.github.com/JavaScript-Garden/#types.equality) からの抜粋で、ここでいくつかの問題点を挙げています。
 
