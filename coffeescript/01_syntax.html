@@ -257,7 +257,7 @@ if 1 &gt; 0 then "Ok" else "Y2K!"
   "Type coercian fixed!"
 </code></pre>
 
-<p>上の例でお気づきかもしれませんが、CoffeeScriptでは <code>==</code> を <code>==</code> に <code>!=</code> を <code>!==</code> に変換しています。私のCoffeeScriptのもっともシンプルで好きな特徴の一つです。これをする意味は何でしょうか？簡単に言えば、JavaScriptのタイプ判定が少しが変で、判定時にタイプを変更してしまい、様々なバグや変な動作の原因となっているのです。</p>
+<p>上の例でお気づきかもしれませんが、CoffeeScriptでは <code>==</code> を <code>===</code> に <code>!=</code> を <code>!==</code> に変換しています。私のCoffeeScriptのもっともシンプルで好きな特徴の一つです。これをする意味は何でしょうか？簡単に言えば、JavaScriptのタイプ判定が少しが変で、判定時にタイプを変更してしまい、様々なバグや変な動作の原因となっているのです。</p>
 
 <p>以下の例は、<a href="http://bonsaiden.github.com/JavaScript-Garden/#types.equality">JavaScript Garden's equality section</a> からの抜粋で、ここでいくつかの問題点を挙げています。</p>
 
