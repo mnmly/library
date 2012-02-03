@@ -102,6 +102,16 @@ failed = []
 passed = (score for score in scores when score &gt; 60)
 </code></pre>
 
+<p>If comprehensions get too long, you can split them onto multiple lines.</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>passed = []
+failed = []
+for score in [49, 58, 76, 82, 88, 90]
+  (if score &gt; 60 then passed else failed).push score
+</code></pre>
+
 <h2>Includes</h2>
 
 <p>値が配列内にあるかどうかを確認する場合、通常(もちろんこの"通常"にはIEは含まれていません)は <code>indexOf()</code> を用いる事でチェックする事が出来ます。<!-- "I don't wanna even translate this as it doesn't make any sense to support IE" which rather mind-bogglingly still requires a shim, as Internet Explorer hasn't implemented it. --></p>
@@ -131,6 +141,24 @@ passed = (score for score in scores when score &gt; 60)
 included = !!~ string.indexOf "test"
 </code></pre>
 
+<h2>Property iteration</h2>
+
+<p>To iterate over a bunch of properties in JavaScript, you'd use the <code>in</code> operator, for example:</p>
+
+<pre><code>var object = {one: 1, two: 2}
+for(var key in object) alert(key + " = " + object[key])
+</code></pre>
+
+<p>However, as you've seen in the previous section, CoffeeScript has already reserved <code>in</code> for use with arrays. Instead, the operator has been renamed <code>of</code>, and can be used like thus:</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>object = {one: 1, two: 2}
+alert("#{key} = #{value}") for key, value of object
+</code></pre>
+
+<p>As you can see, you can specify variables for both the property name, and its value; rather convenient.</p>
+
 <h2>Min/Max</h2>
 
 <p>このテクニックは、CoffeeScriptに固有のものではありませんが、通常 <code>Math.max</code> と <code>Math.min</code> は複数の引数を取るのですが、<code>...</code> を最後に付けることで、配列を引数として処理する事ができます。</p>
@@ -140,6 +168,33 @@ included = !!~ string.indexOf "test"
 <pre><code>Math.max [14, 35, -7, 46, 98]... # 98
 Math.min [14, 35, -7, 46, 98]... # -7
 </code></pre>
+
+<p>It's worth noting that this trick will fail with really large arrays as browsers have a limitation on the amount of arguments you can pass to functions.</p>
+
+<h2>Multiple arguments</h2>
+
+<p>In the <code>Math.max</code> example above, we're  using <code>...</code> to de-structure the array and passing it as multiple arguments to <code>max</code>. Behind the scenes, CoffeeScript is converting the function call to use <code>apply()</code>, ensuring the array is passed as multiple arguments to <code>max</code>. We can use this feature in other ways too, such as proxying function calls:</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>Log =
+  log: -&gt;
+    console?.log(arguments...)
+</code></pre>
+
+<p>Or you can alter the arguments before they're passed onwards:</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>Log =
+  logPrefix: "(App)"
+
+  log: (args...) -&gt;
+    args.unshift(@logPrefix) if @logPrefix
+    console?.log(args...)
+</code></pre>
+
+<p>Bear in mind though, that CoffeeScript will automatically set the function invocation context to the object the function is being invoked on. In the example above, that would be <code>console</code>. If you want to set the context specifically, then you'll need to call <code>apply()</code> manually.</p>
 
 <h2>And/or</h2>
 
@@ -161,7 +216,11 @@ string is string # true
 <pre><code>hash or= {}
 </code></pre>
 
+<<<<<<< HEAD
 <p>ハッシュが <code>false</code> だと評価された場合、それは空のオブジェクトだということになります。<code>[]</code> や <code>""</code> さらには <code>0</code> も<code>false</code>として評価されることに気をつけなくてはいけません。もしそれを意図してない場合は、<code>hash</code> が <code>undefined</code> または <code>null</code> 場合にのみアクティブになるCoffeeScriptの存在確認演算子を使いましょう。</p>
+=======
+<p>If hash evaluates to <code>false</code>, then it's set to an empty object. It's important to note here that this expression also recognizes <code>0</code>, <code>""</code> and <code>null</code> as false. If that isn't your intention, you'll need to use CoffeeScript's existential operator, which only gets activated if <code>hash</code> is <code>undefined</code> or <code>null</code>:</p>
+>>>>>>> upstream/master
 
 <p><span class="csscript"></span></p>
 
@@ -172,12 +231,27 @@ string is string # true
 
 <p>深くネストされたオブジェクトや配列のプロパティも以下のようにして簡単にアクセスすることが出来ます。</p>
 
+<p><span class="csscript"></span></p>
+
 <pre><code>someObject = { a: 'value for a', b: 'value for b' }
 { a, b } = someObject
 console.log "a is '#{a}', b is '#{b}'"
 </code></pre>
 
+<<<<<<< HEAD
 <h2>External Libraries</h2>
+=======
+<p>This is especially useful in Node applications when requiring modules:</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code>{join, resolve} = require('path')
+
+join('/Users', 'Alex')
+</code></pre>
+
+<h2>External libraries</h2>
+>>>>>>> upstream/master
 
 <p>最終的には結局JavaScriptにコンパイルされるので、外部ライブラリを使用する場合もCoffeeScriptのライブラリを呼び出すのと全く同じです。 <a href="http://jquery.com">jQuery</a>をCoffeeScriptで使うときは、jQueryのAPIのコールバックのパターンをよりエレガントに書く事が出来ます。</p>
 
@@ -193,6 +267,26 @@ $ -&gt;
 </code></pre>
 
 <p>CoffeeScriptからコンパイルされたのコードはすべて、無名関数内にラップされているので、<code>jQuery</code>のためのエイリアスである<code>$</code>をローカルにセットして使うことが出来ます。</p>
+
+<h2>Private variables</h2>
+
+<p>The <code>do</code> keyword in CoffeeScript lets us execute functions immediately, a great way of encapsulating scope &amp; protecting variables. In the example below, we're defining a variable <code>classToType</code> in the context of an anonymous function which's immediately called by <code>do</code>. That anonymous function returns a second anonymous function, which will be ultimate value of <code>type</code>. Since <code>classToType</code> is defined in a context that no reference is kept to, it can't be accessed outside that scope.</p>
+
+<p><span class="csscript"></span></p>
+
+<pre><code># Execute function immediately
+type = do -&gt;
+  classToType = {}
+  for name in "Boolean Number String Function Array Date RegExp Undefined Null".split(" ")
+    classToType["[object " + name + "]"] = name.toLowerCase()
+
+  # Return a function
+  (obj) -&gt;
+    strType = Object::toString.call(obj)
+    classToType[strType] or "object"
+</code></pre>
+
+<p>In other words, <code>classToType</code> is completely private, and can never again be referenced outside the executing anonymous function. This pattern is a great way of encapsulating scope and hiding variables.</p>
 
   </div>
 </div>
